@@ -103,7 +103,7 @@ function stormLevel(n){return [5,12,15,17].includes(n)}
 function load(){stageStarted=frame;levelHits=0;movingPlatforms=[];springs=[];scaffoldCrates=[];excavators=[];rockBlocks=[];conveyors=[];hooks=[];ladders=[];cabins=[];grapple=null;driving=null;checkpoint=null;progressUI();worldW=3900+Math.min(level,10)*270;exitX=worldW-105;platforms=[];const pitStarts=[];for(let x=630;x<worldW-430;x+=790){pitStarts.push(x)}let groundStart=0;for(const x of pitStarts){platforms.push({x:groundStart,y:GROUND,w:x-groundStart,h:70});groundStart=x+105}platforms.push({x:groundStart,y:GROUND,w:worldW-groundStart,h:70});// Parkour: korta separata ställningar, tydliga luckor och två valbara höjdnivåer.
 for(let x=235,i=0;x<worldW-240;x+=320,i++){
  if(i%7===5)continue; // större avbrott: ingen motorväg över banan
- const y=GROUND-([82,112,92,128,103,86,119][i%7]);
+ const y=GROUND-([202,222,210,238,215,200,225][i%7]);
  const w=i%4===2?108:124;
  platforms.push({x,y,w,h:17,scaffold:true});
  if(i%5===1){ // extra övre väg, nåbar via den lägre ställningen
@@ -120,9 +120,10 @@ for(const x of pitStarts){ // avsatser vid gropar, men ingen obruten bro
 }
 // Vertikala parkour-torn, tydliga stegar och hemliga byggbodar.
 for(let tower=0,base=850;base<worldW-550;base+=1280,tower++){
- const ys=[GROUND-175,GROUND-245,GROUND-315];
+ const ys=[GROUND-245,GROUND-325,GROUND-405];
  ys.forEach((y,j)=>{const x=base+58*j;platforms.push({x,y,w:145,h:17,scaffold:true,tower:true,fragile:level>=3&&j===1,timer:0,gone:0});
- ladders.push({x:x+18,y:y+17,w:25,h:j===0?GROUND-y-17:105});
+ // En sammanhängande stege i tornet gör klättringen nödvändig och möjlig.
+ if(j===0)ladders.push({x:base+122,y:ys[2]+17,w:23,h:GROUND-ys[2]-17});
  });
  cabins.push({x:base+130,y:ys[2]-65,w:95,h:65,opened:false});
  hooks.push({x:base+290,y:GROUND-235,length:115,phase:tower*1.4});
@@ -155,6 +156,9 @@ for(let base=850;base<worldW-550;base+=1280){
  scaffoldCrates=scaffoldCrates.filter(cr=>platforms.some(p=>p.scaffold&&!p.tower&&cr.x>=p.x&&cr.x+cr.w<=p.x+p.w&&Math.abs(cr.y+cr.h-p.y)<2));
  springs.push({x,y:GROUND-18,w:46,h:18,targetX:base+65,targetY:GROUND-245});
 }
+// Frigör tornens stegar: vanliga ställningar får inte bilda genvägar eller täcka stegen.
+platforms=platforms.filter(p=>!p.scaffold||p.tower||!ladders.some(l=>p.x<l.x+90&&p.x+p.w>l.x-90));
+// Flytta eventuella lådor som förlorat sin plattform i filtreringen.
 // Placera inte lådor på smala avsatser, framför stegar eller direkt i studsvägen.
 scaffoldCrates=scaffoldCrates.filter(cr=>{
  const p=platforms.find(p=>p.scaffold&&!p.tower&&cr.x>=p.x&&cr.x+cr.w<=p.x+p.w&&Math.abs(cr.y+cr.h-p.y)<2);
@@ -226,7 +230,7 @@ for(const belt of conveyors){
   player.x=Math.max(0,Math.min(worldW-player.w,player.x+belt.dir*3.5));
  }
 }
-for(const sp of springs){if(player.vy>=0&&player.x+player.w>sp.x+5&&player.x<sp.x+sp.w-5&&player.y+player.h>=sp.y-5&&player.y+player.h<=GROUND+5){player.y=sp.y-player.h;player.vy=-19.5;player.vx=7.2;player.on=false;player.jumps=0;player.springBoost=20;burst(sp.x+20,sp.y,'#f8d34b',12);message('BOING! STYR MOT DEN HÖGA STÄLLNINGEN!')}}if(player.y>H+60){player.inv=0;damage();if(dead)return;const safe=platforms.filter(p=>!p.scaffold&&p.w>100).sort((a,b)=>Math.abs(a.x-(checkpoint&&checkpoint.active?checkpoint.x:player.x-200))-Math.abs(b.x-(checkpoint&&checkpoint.active?checkpoint.x:player.x-200)))[0];player.x=checkpoint&&checkpoint.active?checkpoint.x:safe?Math.max(safe.x+25,65):65;player.y=GROUND-180;player.vy=0;player.inv=130}for(const it of items){if(!it.got&&overlap(player,{x:it.x,y:it.y,w:26,h:26})){if(it.type==='blueprint'){it.got=true;blueprints[level]=true;try{localStorage.setItem(PLAN_KEY,JSON.stringify(blueprints))}catch(e){};score+=750;earn(300);message('📜 HEMLIG RITNING! +750 POÄNG!');progressUI()}else pickup(it)}}for(const e of enemies){if(!e.alive)continue;e.x+=e.vx;if(Math.abs(e.x-e.origin)>60)e.vx*=-1;if(--e.talk<=0){e.talk=210+rand(200);if(Math.abs(e.x-player.x)<360&&Math.random()<.4)message(e.quote)}if(--e.throwTimer<=0){e.throwTimer=Math.max(90,235-level*35)+Math.floor(rand(95));
+for(const sp of springs){if(player.vy>=0&&player.x+player.w>sp.x+5&&player.x<sp.x+sp.w-5&&player.y+player.h>=sp.y-5&&player.y+player.h<=GROUND+5){player.y=sp.y-player.h;player.vy=-17.2;player.vx=5.7;player.on=false;player.jumps=0;player.springBoost=20;burst(sp.x+20,sp.y,'#f8d34b',12);message('BOING! STYR MOT DEN HÖGA STÄLLNINGEN!')}}if(player.y>H+60){player.inv=0;damage();if(dead)return;const safe=platforms.filter(p=>!p.scaffold&&p.w>100).sort((a,b)=>Math.abs(a.x-(checkpoint&&checkpoint.active?checkpoint.x:player.x-200))-Math.abs(b.x-(checkpoint&&checkpoint.active?checkpoint.x:player.x-200)))[0];player.x=checkpoint&&checkpoint.active?checkpoint.x:safe?Math.max(safe.x+25,65):65;player.y=GROUND-180;player.vy=0;player.inv=130}for(const it of items){if(!it.got&&overlap(player,{x:it.x,y:it.y,w:26,h:26})){if(it.type==='blueprint'){it.got=true;blueprints[level]=true;try{localStorage.setItem(PLAN_KEY,JSON.stringify(blueprints))}catch(e){};score+=750;earn(300);message('📜 HEMLIG RITNING! +750 POÄNG!');progressUI()}else pickup(it)}}for(const e of enemies){if(!e.alive)continue;e.x+=e.vx;if(Math.abs(e.x-e.origin)>60)e.vx*=-1;if(--e.talk<=0){e.talk=210+rand(200);if(Math.abs(e.x-player.x)<360&&Math.random()<.4)message(e.quote)}if(--e.throwTimer<=0){e.throwTimer=Math.max(90,235-level*35)+Math.floor(rand(95));
 if(Math.abs(e.x-player.x)<480&&Math.abs(e.y-player.y)<160){
 const dir=player.x<e.x?-1:1;
 customerShots.push({x:e.x+16,y:e.y+9,vx:dir*(2.5+level*.45),vy:-4.7-level*.18,t:160,spin:0,type:Math.random()<.5?'KLAGOMÅL':'ÄTA?!'});
