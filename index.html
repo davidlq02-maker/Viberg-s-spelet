@@ -547,6 +547,36 @@ voicePanel.querySelectorAll('[data-voice]').forEach(b=>b.addEventListener('click
 function gansterLines(mode){return gangsterLines[mode]}
 chooseVoice();
 document.querySelector('#sound').onclick=e=>{audio=!audio;e.target.textContent=audio?'🔊 SVENSK RÖST':'🔇 LJUD AV';if(!audio&&'speechSynthesis'in window)speechSynthesis.cancel()};reset();paused=true;requestAnimationFrame(loop)})();
+</script>
+<style id="super-kicki-music-volume-style">#musicVolumeControl{display:inline-flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;padding:8px 13px;border:1px solid #e2b957;border-radius:10px;background:#18263c;color:#fff;font:700 13px system-ui;min-width:170px}#musicVolumeControl input{width:150px;max-width:100%;accent-color:#ffd15d;cursor:pointer}#musicVolumeControl output{color:#ffd15d}</style>
+<script id="super-kicki-original-music">
+/* Original SUPER KICKI chiptune. No external audio files required. */
+(()=>{
+  const notes={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:783.99,A5:880};
+  const melody=['E5','G5','A5','G5','E5','D5','C5',null,'E5','G5','A5','C5','B4','G4','A4',null,'C5','E5','G5','E5','D5','C5','D5',null,'E5','D5','C5','G4','A4','C5','E5',null];
+  const bass=['C4',null,'C4',null,'A4',null,'G4',null,'F4',null,'F4',null,'G4',null,'G4',null];
+  let ctx=null,timer=null,step=0,enabled=true,started=false;
+  let volume=Number(localStorage.getItem('superKickiMusicVolume') ?? '35');
+  if(!Number.isFinite(volume))volume=35;volume=Math.max(0,Math.min(100,volume));
+  let master=null;
+  const button=document.createElement('button');button.id='musicToggle';button.type='button';button.textContent='🎵 MUSIK PÅ';button.setAttribute('aria-label','Slå av eller på spelmusiken');
+  const buttons=document.querySelector('.buttons');if(buttons){
+    buttons.appendChild(button);
+    const volumeControl=document.createElement('label');volumeControl.id='musicVolumeControl';
+    volumeControl.innerHTML='<span>🔉 MUSIKVOLYM <output id="musicVolumeValue"></output></span><input id="musicVolume" type="range" min="0" max="100" step="1" aria-label="Musikvolym">';
+    buttons.appendChild(volumeControl);
+    const slider=volumeControl.querySelector('input'),output=volumeControl.querySelector('output');
+    slider.value=volume;output.textContent=volume+' %';
+    slider.addEventListener('input',()=>{volume=Number(slider.value);output.textContent=volume+' %';localStorage.setItem('superKickiMusicVolume',String(volume));if(master&&ctx)master.gain.setTargetAtTime(volume/100,ctx.currentTime,.025)});
+  }
+  function beep(freq,when,duration,kind,volume){if(!ctx||!freq)return;const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type=kind;osc.frequency.setValueAtTime(freq,when);gain.gain.setValueAtTime(.0001,when);gain.gain.exponentialRampToValueAtTime(volume,when+.012);gain.gain.exponentialRampToValueAtTime(.0001,when+duration);osc.connect(gain).connect(master||ctx.destination);osc.start(when);osc.stop(when+duration+.01)}
+  function tick(){if(!ctx||ctx.state!=='running'||!enabled||document.hidden)return;const t=ctx.currentTime+.025;const note=melody[step%melody.length];if(note)beep(notes[note],t,.16,'square',.023);if(step%2===0){const b=bass[(step/2)%bass.length];if(b)beep(notes[b]/2,t,.23,'triangle',.048)}if(step%4===2)beep(180,t,.035,'triangle',.012);step++}
+  async function start(){if(!enabled||started)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();if(!master){master=ctx.createGain();master.gain.value=volume/100;master.connect(ctx.destination)}await ctx.resume();started=true;tick();timer=setInterval(tick,205)}catch(e){started=false}}
+  function stop(){if(timer){clearInterval(timer);timer=null}started=false;if(ctx&&ctx.state==='running')ctx.suspend().catch(()=>{})}
+  button.addEventListener('click',()=>{enabled=!enabled;button.textContent=enabled?'🎵 MUSIK PÅ':'🔇 MUSIK AV';if(enabled)start();else stop()});
+  document.getElementById('startGame')?.addEventListener('click',()=>{if(enabled)start()});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else if(enabled&&document.getElementById('startScreen')?.hidden)start()});
+})();
 </script><section aria-label="Om spelet" class="site-extras"><div class="site-extras-inner"><p class="eyebrow">SUPER KICKI PRESENTERAR</p><h2>Bygg. Bråka. Fakturera.</h2><p>Hjälp SUPER KICKI genom byggkaoset! Samla coins, köp spikpistolen, slå sönder träbarriärer, undvik arga hantverkare och ladda upp RASERI och MEGA-KICKI till 100 %.</p><h3>Färre bonusar – fler val i butiken</h3><div class="pickup-gallery"><div><img alt="Kaffe" src="ikoner/coffee.webp"/><strong>Kaffe</strong><small>Extra energi</small></div><div><img alt="Saltad faktura" src="ikoner/gold.webp"/><strong>Saltad faktura</strong><small>MEGA +35</small></div><div><img alt="Mynt" src="ikoner/coin.webp"/><strong>Mynt</strong><small>Poäng och kraft</small></div><div><img alt="Bygghjälm" src="ikoner/helmet.webp"/><strong>Bygghjälm</strong><small>Specialkraft</small></div><div><img alt="Cement" src="ikoner/concrete.webp"/><strong>Cement</strong><small>Skydd</small></div><div><img alt="Raseri" src="ikoner/rage.webp"/><strong>Raseri</strong><small>Tryck F vid 100 %</small></div></div><p class="site-note">🎮 GRATIS OCH UTAN KONTO! Klicka på SPELA NU för att börja direkt på dator eller mobil. Ingen inloggning eller registrering krävs. Rekorden sparas på en gemensam topplista online.</p><footer>SUPER KICKI · BYGGKAOS UTAN GRÄNSER · SUPER KICKI</footer></div></section><script id="large-screen-script">(function(){
 const b=document.getElementById('largeScreenBtn');if(!b)return;
 function sync(){const on=document.body.classList.contains('mobile-expanded');b.textContent=on?'✕ AVSLUTA STOR SKÄRM':'⛶ STOR SPELSKÄRM';}
