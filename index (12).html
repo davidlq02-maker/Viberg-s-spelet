@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="sv"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" name="viewport"/><meta content="#10131d" name="theme-color"/><title>SUPER KICKI – BYGGKAOS DELUXE | Kvalitetsuppdatering</title><style>*{box-sizing:border-box}body{margin:0;background:#10131d;color:#fff;font-family:system-ui,Arial;text-align:center}header{padding:10px 12px 4px}h1{margin:0;font-size:clamp(22px,4vw,36px)}.brand{display:inline-block;background:#050505;padding:5px 18px;font-weight:900;letter-spacing:3px;border:2px solid #eee}.brand small{display:block;font-size:10px;letter-spacing:2px}.help{font-size:13px;color:#cdd6e8;margin:7px}canvas{display:block;width:min(98vw,1050px);aspect-ratio:16/9;margin:8px auto;background:#80d3f5;border:4px solid #e7e7e7;border-radius:10px;image-rendering:auto;touch-action:none}.buttons{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:10px auto;max-width:950px}button{border:2px solid #fff5;border-radius:12px;background:#293b61;color:white;font-weight:800;font-size:16px;padding:12px 17px;cursor:pointer;touch-action:none}button:active{background:#db632e}.sub{color:#b9c5d9;font-size:12px;margin:10px}#leaderboard{max-width:740px;margin:12px auto 26px;background:#1b2438;border:2px solid #e8bb4a;border-radius:16px;padding:16px;text-align:left}#leaderboard h2{text-align:center;margin:0 0 12px;color:#ffdc69}#leaderboard ol{padding-left:36px}#leaderboard li{padding:6px;border-bottom:1px solid #ffffff20;font-weight:700}#leaderboard li span{float:right;color:#ffe187}#leaderboard p{text-align:center;color:#cbd3e0}#leaderboard .recordform{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}#leaderboard input{background:#fff;color:#172037;border-radius:8px;border:0;padding:12px;font-size:16px;width:200px}#leaderboard button{padding:10px}#leaderboard .small{font-size:12px;color:#aebbd2}#leaderboard[hidden]{display:none}
+html{overscroll-behavior:none}body{min-height:100vh;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom)}canvas{max-height:calc(100dvh - 110px);object-fit:contain}.buttons{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation}.buttons button{-webkit-tap-highlight-color:transparent}.buttons button:focus-visible{outline:3px solid #ffe16b;outline-offset:2px}
+@media(max-width:700px){header{padding:5px 6px 2px}h1{font-size:clamp(17px,5vw,23px);margin-top:3px}.brand{padding:3px 12px;font-size:15px}.brand small{font-size:8px}.help{font-size:11px;margin:4px auto;max-width:90vw}canvas{width:100vw;border:2px solid #e7e7e7;border-radius:0;margin:4px auto;max-height:54dvh}.buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:6px auto;padding:0 7px}.buttons button{min-width:0;padding:13px 2px;font-size:clamp(10px,2.7vw,14px);border-radius:12px;min-height:55px}.buttons .move{background:#2b5c84;font-size:clamp(13px,3.1vw,18px)}.buttons .action{background:#743b32}.buttons #sound,.buttons #restart,.buttons #leaderboardBtn{grid-column:span 1;font-size:11px;min-height:40px;padding:8px 3px}.buttons #leaderboardBtn{grid-column:span 2}.sub{padding:0 12px;font-size:11px;margin:6px auto}#leaderboard{margin:8px 6px 20px;padding:12px}#leaderboard li{font-size:13px}}
+@media(max-width:380px){.buttons{gap:4px}.buttons button{min-height:50px}.help{font-size:10px}}
+@media(orientation:landscape) and (max-height:520px){header{padding:2px}h1{font-size:15px}.help{display:none}.brand{font-size:12px;padding:2px 8px}.brand small{font-size:7px}canvas{width:min(70vw,calc(100dvh * 1.6));max-height:calc(100dvh - 58px);margin:3px auto}.buttons{position:fixed;inset:auto 0 0;pointer-events:none;display:flex;justify-content:space-between;align-items:end;padding:6px;margin:0;max-width:none}.buttons button{pointer-events:auto;opacity:.88;font-size:11px;padding:9px 4px;min-height:44px}.buttons #sound,.buttons #restart,.buttons #leaderboardBtn{display:none}.sub{display:none}}
+.voice-panel{max-width:960px;margin:12px auto;padding:15px 20px;background:#171d29;border:1px solid #c49b52;border-radius:14px;color:#f6e8cc;font:600 14px system-ui;text-align:center}.voice-panel strong{display:block;font-size:17px;letter-spacing:.08em}.voice-panel span{display:block;margin:7px 0;color:#d4c5ab;font-size:12px}.voice-tests{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}.voice-tests button{background:#d8aa58;color:#1e1a17;border:0;border-radius:8px;padding:10px 17px;font-weight:900;cursor:pointer}.voice-panel small{font-weight:400;color:#bdb5a7}</style><style id="start-style">#startScreen{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;overflow:auto;padding:18px;background:radial-gradient(circle at 50% 40%,#293348,#08090d 70%);color:white}#startScreen[hidden]{display:none}.start-panel{width:min(570px,100%);text-align:center;border:2px solid #ffffff44;border-radius:24px;background:#08090ce8;padding:clamp(18px,4vw,38px);box-shadow:0 22px 80px #000b}.start-logo{font-weight:1000;letter-spacing:.12em;font-size:clamp(42px,11vw,78px);line-height:1;color:white;text-shadow:4px 5px 0 #444}.start-tag{font-size:clamp(13px,3vw,18px);letter-spacing:.17em;font-weight:850;margin-top:9px}.start-sub{font-size:clamp(12px,2.5vw,15px);color:#ddd;margin:10px 0 0}.start-title{color:#ffcb48;font-weight:1000;font-size:clamp(30px,8vw,52px);margin:8px 0 0;text-shadow:3px 4px 0 #6d321a}.kicki-mascot{height:160px;position:relative;display:flex;align-items:center;justify-content:center;animation:kickiBounce .85s ease-in-out infinite alternate;filter:drop-shadow(0 9px 0 #0009)}.kicki-mascot .hat{position:absolute;top:8px;width:95px;height:30px;border-radius:55% 55% 18% 18%;background:#30323b;border-bottom:7px solid #17191d;transform:rotate(-8deg)}.kicki-mascot .face{position:absolute;top:31px;width:72px;height:75px;background:#f0ad82;border-radius:25px}.kicki-mascot .eyes{position:absolute;top:53px;font-size:20px;color:#151515;font-weight:900;letter-spacing:13px;margin-left:13px}.kicki-mascot .beard{position:absolute;top:80px;width:86px;height:70px;background:#b74720;clip-path:polygon(0 0,100% 0,85% 48%,60% 100%,35% 75%,14% 55%);border-radius:13px}.kicki-mascot .suit{position:absolute;top:132px;width:96px;height:29px;background:#30353f;border-radius:16px 16px 0 0;z-index:-1}@keyframes kickiBounce{from{transform:translateY(5px) rotate(-3deg)}to{transform:translateY(-9px) rotate(3deg)}}#startGame{display:block;width:100%;margin:15px 0 10px;padding:17px;background:#f6b52d;color:#1b150a;border:0;font-size:clamp(19px,4vw,25px);box-shadow:0 6px 0 #9d6212}#startGame:focus-visible{outline:4px solid white}.start-foot{font-size:12px;color:#b9bcc7;line-height:1.5}@media(prefers-reduced-motion:reduce){.kicki-mascot{animation:none}}.voice-panel{max-width:960px;margin:12px auto;padding:15px 20px;background:#171d29;border:1px solid #c49b52;border-radius:14px;color:#f6e8cc;font:600 14px system-ui;text-align:center}.voice-panel strong{display:block;font-size:17px;letter-spacing:.08em}.voice-panel span{display:block;margin:7px 0;color:#d4c5ab;font-size:12px}.voice-tests{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}.voice-tests button{background:#d8aa58;color:#1e1a17;border:0;border-radius:8px;padding:10px 17px;font-weight:900;cursor:pointer}.voice-panel small{font-weight:400;color:#bdb5a7}</style><style>.site-extras{margin:40px auto 0;padding:42px 20px 28px;background:linear-gradient(145deg,#151b28,#252331);color:#f8f5e9;border-top:5px solid #f8bd37;font-family:system-ui,sans-serif}.site-extras-inner{max-width:1040px;margin:auto}.site-extras .eyebrow{font-size:12px;letter-spacing:.25em;color:#ffca53;font-weight:900}.site-extras h2{font-size:clamp(30px,5vw,54px);margin:8px 0}.site-extras h3{font-size:24px;margin-top:28px}.site-extras p{line-height:1.65;max-width:780px}.pickup-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:14px}.pickup-gallery>div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:14px 8px;background:#0d101a;border:1px solid #66512c;border-radius:14px}.pickup-gallery img{width:100px;height:100px;object-fit:cover;border-radius:10px}.pickup-gallery strong{font-size:15px}.pickup-gallery small{color:#d6b56e}.site-extras .site-note{margin-top:28px}.site-extras footer{margin-top:24px;padding-top:20px;border-top:1px solid #45434c;color:#aaa5a0;font-size:12px;letter-spacing:.1em}.voice-panel{max-width:960px;margin:12px auto;padding:15px 20px;background:#171d29;border:1px solid #c49b52;border-radius:14px;color:#f6e8cc;font:600 14px system-ui;text-align:center}.voice-panel strong{display:block;font-size:17px;letter-spacing:.08em}.voice-panel span{display:block;margin:7px 0;color:#d4c5ab;font-size:12px}.voice-tests{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}.voice-tests button{background:#d8aa58;color:#1e1a17;border:0;border-radius:8px;padding:10px 17px;font-weight:900;cursor:pointer}.voice-panel small{font-weight:400;color:#bdb5a7}</style>
+<style>
+:root{color-scheme:dark;--gold:#ffcb59;--ink:#0d1622;--card:#182637}
+body{background:radial-gradient(ellipse at 50% -10%,#29475d 0%,#0d1622 56%,#090e15 100%);color:#f4f6f8;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif}
+header{max-width:1120px;margin:0 auto;padding:24px 12px 10px}
+h1{font-weight:1000;letter-spacing:-.04em;text-shadow:0 3px 20px #0008}
+.brand{border:1px solid #ffd576;background:linear-gradient(120deg,#192533,#080d13);border-radius:9px;box-shadow:0 6px 25px #0007}
+.help{color:#d8e2ed;line-height:1.6}
+canvas{width:min(96vw,1120px);max-height:none;border:3px solid #b6a178;border-radius:17px;box-shadow:0 25px 80px #000a,0 0 0 7px #ffffff0b;background:#87c2dc}
+.buttons{max-width:1100px;padding:4px 12px;gap:10px}
+button{background:linear-gradient(#35475d,#1d2a3b);border:1px solid #ffffff40;box-shadow:0 5px 12px #0005;transition:filter .15s,transform .15s}
+button:hover{filter:brightness(1.16)}button:active{transform:translateY(2px)}
+#startScreen{backdrop-filter:blur(5px)}
+#leaderboard,.site-extras-inner{border-radius:22px!important;box-shadow:0 12px 45px #0004}
+.pickup-gallery img{object-fit:contain}
+.site-note{font-weight:800;color:#ffdc7d!important}
+@media(max-width:700px){header{padding:10px 8px 5px}canvas{width:100vw;border-width:2px;border-radius:5px}.buttons{gap:5px;padding:2px 4px}.buttons button{min-height:48px;padding:9px 7px;font-size:12px;flex:1 1 auto}.help{font-size:11px}.site-extras{padding:12px}}
+.voice-panel{max-width:960px;margin:12px auto;padding:15px 20px;background:#171d29;border:1px solid #c49b52;border-radius:14px;color:#f6e8cc;font:600 14px system-ui;text-align:center}.voice-panel strong{display:block;font-size:17px;letter-spacing:.08em}.voice-panel span{display:block;margin:7px 0;color:#d4c5ab;font-size:12px}.voice-tests{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}.voice-tests button{background:#d8aa58;color:#1e1a17;border:0;border-radius:8px;padding:10px 17px;font-weight:900;cursor:pointer}.voice-panel small{font-weight:400;color:#bdb5a7}</style>
+<meta content="Spela SUPER KICKI – gratis byggkaos för mobil och dator. Inget konto, ingen nedladdning. Byggkaos utan gränser!" name="description"/><meta content="SUPER KICKI – SUPER KICKI" property="og:title"/><meta content="Gratis plattformsspel! Spela direkt på mobil och dator utan konto." property="og:description"/><meta content="website" property="og:type"/><link href="manifest.webmanifest" rel="manifest"/><link href="favicon.png" rel="icon" type="image/png"/><style id="v20-style">
+#mobileHud{display:none}#shopBtn{background:#d79b29;color:#17130b;border-color:#ffe5a5}#shopPanel[hidden]{display:none!important}#shopPanel{position:fixed;inset:0;z-index:35;background:#090d18eF;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:12px}#shopInner{background:#1c2941;border:2px solid #f5c35c;border-radius:18px;padding:18px;width:min(650px,100%);max-height:96dvh;overflow:auto;text-align:center;box-shadow:0 20px 90px #000a}#shopInner h2{color:#ffd56e;margin:0 0 5px}#weaponInfo{color:#ffe19a;font-weight:800;margin:10px 0}#shopMoney{color:#8ff2b2;font-weight:900;font-size:22px}#shopItems{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}#shopItems button{background:#2e4163;text-align:left;min-height:96px;font-size:14px;line-height:1.5}#shopItems button:disabled{opacity:.5;cursor:not-allowed}#shopItems button strong{display:block;color:#ffe6a6;font-size:17px}#shopItems button small{display:block;color:#a8f3c3;font-size:12px}#shopClose{background:#16734e;width:100%;min-height:52px}
+@media(max-width:700px){body{padding-bottom:env(safe-area-inset-bottom)}header{padding:2px 4px}header .brand{display:none}header h1{font-size:16px}header .help{display:none}#mobileHud{display:flex;justify-content:space-between;gap:5px;padding:3px 7px;font-size:12px;font-weight:800}canvas{width:100%;height:auto;max-height:calc(100dvh - 190px);margin:2px auto;border:1px solid #ddd}.buttons{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;padding:0 6px;margin:5px auto}.buttons button{font-size:12px;min-height:62px;padding:8px 3px;border-radius:13px}.buttons [data-key="ArrowLeft"],.buttons [data-key="ArrowRight"]{grid-column:span 2;font-size:23px;min-height:78px}.buttons [data-key="ArrowUp"]{grid-column:span 2;background:#386e58}.buttons [data-key="Space"]{grid-column:span 2;font-size:18px;min-height:78px;background:#246bb3}.buttons [data-key="KeyX"]{grid-column:span 2;background:#a54c2d}.buttons [data-key="KeyF"],.buttons [data-key="KeyZ"],.buttons [data-key="KeyC"]{grid-column:span 2}.buttons #sound,.buttons #restart,.buttons #leaderboardBtn,.buttons #shopBtn{grid-column:span 3;min-height:43px;font-size:12px}.buttons #leaderboardBtn{grid-column:span 3}.voice-panel,.site-extras,.sub{display:none}#shopItems{grid-template-columns:1fr}#shopInner{padding:12px}}
+@media(orientation:landscape) and (max-height:520px){header,.voice-panel,.site-extras,.sub,#mobileHud{display:none!important}canvas{width:min(80vw,calc(100dvh * 1.7));max-height:97dvh;margin:0 auto}.buttons{position:fixed;inset:0;display:block;pointer-events:none;margin:0;padding:0}.buttons button{position:absolute;pointer-events:auto;opacity:.85;min-height:62px;min-width:65px;font-size:13px}.buttons [data-key="ArrowLeft"]{left:2%;bottom:6%;}.buttons [data-key="ArrowRight"]{left:15%;bottom:6%}.buttons [data-key="Space"]{right:3%;bottom:6%}.buttons [data-key="KeyX"]{right:16%;bottom:6%}.buttons [data-key="KeyC"]{right:29%;bottom:36%}.buttons [data-key="KeyF"]{right:3%;bottom:36%}.buttons [data-key="KeyZ"]{right:16%;bottom:36%}.buttons #sound,.buttons #restart,.buttons #leaderboardBtn,.buttons #shopBtn{display:none}}
+</style><style id="mobile-large-screen">
+#largeScreenBtn{display:block;margin:6px auto 8px;background:#f6b52d;color:#191919;border:2px solid #fff;font-size:16px;min-height:48px;max-width:94vw}
+#rotateTip{display:none;color:#ffe2a0;font-weight:800;font-size:12px;margin:3px auto}
+@media (pointer:coarse) and (max-width:900px){#rotateTip{display:block}header{padding:2px 4px!important}header .brand{display:none}header h1{font-size:16px!important;margin:2px!important}header .help{display:none!important}#mobileHud{display:none!important}canvas#game{margin:2px auto!important;width:100vw!important;max-height:none!important;border:1px solid #e7e7e7!important;border-radius:0!important}.site-extras{margin-top:12px}.buttons{margin-top:3px!important}}
+body.mobile-expanded{overflow:hidden!important;padding:0!important;height:100dvh!important;touch-action:none}
+body.mobile-expanded header,body.mobile-expanded #mobileHud,body.mobile-expanded #rotateTip,body.mobile-expanded .site-extras,body.mobile-expanded .voice-panel,body.mobile-expanded .sub{display:none!important}
+body.mobile-expanded #game{position:fixed!important;inset:0!important;display:block!important;width:100vw!important;height:100dvh!important;max-height:100dvh!important;object-fit:contain!important;margin:0!important;border:0!important;border-radius:0!important;background:#10131d!important;z-index:40}
+body.mobile-expanded #largeScreenBtn{position:fixed;right:7px;top:5px;z-index:53;min-height:32px;padding:4px 8px;margin:0;font-size:11px;opacity:.88}
+body.mobile-expanded .buttons{position:fixed!important;inset:0!important;z-index:50!important;pointer-events:none!important;display:block!important;margin:0!important;padding:0!important;max-width:none!important;background:none!important}
+body.mobile-expanded .buttons button{pointer-events:auto!important;position:absolute!important;display:block!important;width:clamp(52px,12vw,84px)!important;height:clamp(52px,12vw,84px)!important;min-height:0!important;padding:3px!important;border:2px solid #ffffffb0!important;border-radius:20px!important;font-size:clamp(10px,2vw,14px)!important;line-height:1.1!important;opacity:.84!important;touch-action:none!important}
+body.mobile-expanded .buttons button[data-key="ArrowLeft"]{left:3%;bottom:8%;background:#174d79!important}
+body.mobile-expanded .buttons button[data-key="ArrowRight"]{left:calc(4% + clamp(55px,13vw,90px));bottom:8%;background:#174d79!important}
+body.mobile-expanded .buttons button[data-key="Space"]{right:3%;bottom:8%;background:#88402d!important}
+body.mobile-expanded .buttons button[data-key="KeyX"]{right:calc(4% + clamp(55px,13vw,90px));bottom:8%;background:#88402d!important}
+body.mobile-expanded .buttons button[data-key="KeyF"]{right:3%;bottom:calc(11% + clamp(52px,12vw,84px));background:#8b321e!important}
+body.mobile-expanded .buttons button[data-key="KeyZ"]{right:calc(4% + clamp(55px,13vw,90px));bottom:calc(11% + clamp(52px,12vw,84px));background:#8b321e!important}
+body.mobile-expanded .buttons button[data-key="KeyC"]{right:calc(4% + clamp(55px,13vw,90px));bottom:calc(18% + clamp(52px,12vw,84px));background:#286b66!important}body.mobile-expanded .buttons #sound,body.mobile-expanded .buttons #restart,body.mobile-expanded .buttons #leaderboardBtn,body.mobile-expanded .buttons #shopBtn{display:none!important}
+body.mobile-expanded #shopPanel,body.mobile-expanded #leaderboard{z-index:60!important}
+@media (orientation:portrait){body.mobile-expanded #game{height:78dvh!important;top:6dvh!important}body.mobile-expanded .buttons button[data-key="ArrowLeft"],body.mobile-expanded .buttons button[data-key="ArrowRight"],body.mobile-expanded .buttons button[data-key="Space"],body.mobile-expanded .buttons button[data-key="KeyX"]{bottom:3%!important}body.mobile-expanded .buttons button[data-key="KeyF"],body.mobile-expanded .buttons button[data-key="KeyZ"]{bottom:calc(5% + clamp(52px,12vw,84px))!important}}
+</style><style>.buttons [data-key="KeyC"]{background:#286b66;color:#fff;border-color:#7fe8c6}#weaponInfo{font-size:14px}@media(max-width:700px){.buttons [data-key="KeyC"]{min-height:64px}}@media(orientation:landscape) and (max-height:520px){.buttons [data-key="KeyC"]{display:block;right:29%;bottom:36%}}</style><style id="ultimate-style">#ultimateSettings{max-width:980px;margin:12px auto;padding:12px;border:1px solid #c6a55c;border-radius:15px;background:#1b2940;text-align:center}#ultimateSettings label{font-weight:800;margin:0 8px}#ultimateSettings select{padding:10px;background:#111c2b;color:white;border:1px solid #c6a55c;border-radius:8px;font-size:15px}#levelProgress{color:#ffda76;font-weight:850;margin:8px}#ultimateHelp{font-size:12px;color:#b9d0e2;margin:5px}#checkpointToast{color:#b2ffd6}@media(max-width:700px){#ultimateSettings{margin:5px;padding:7px}#ultimateSettings label{font-size:12px}#ultimateSettings select{font-size:13px;padding:7px}}</style><style>#mapPanel{max-width:970px;margin:12px auto;padding:16px;border:2px solid #e6bb61;border-radius:15px;background:#16233b}#mapPanel[hidden]{display:none}#levelMap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}#levelMap button{font-size:12px;min-height:45px}#levelMap button:disabled{opacity:.45}@media(max-width:700px){#levelMap{grid-template-columns:repeat(4,minmax(0,1fr))}#mapBtn{font-size:12px;padding:8px}}@media(orientation:landscape) and (max-height:520px){.buttons [data-key="ArrowUp"]{display:block!important;position:absolute;left:28%;bottom:6%;min-width:60px}.buttons [data-key="KeyE"]{display:block!important;position:absolute;right:3%;bottom:62%;min-width:70px}.buttons [data-key="KeyC"]{right:29%!important;bottom:36%!important}.buttons [data-key="KeyF"]{right:3%!important;bottom:36%!important}.buttons [data-key="KeyZ"]{right:16%!important;bottom:36%!important}}</style><style id="mobile-controls-108">
+/* Mobil: alla nödvändiga spelknappar synliga även i stor skärm. */
+body.mobile-expanded .buttons button[data-key="ArrowUp"]{display:block!important;left:3%!important;bottom:calc(12% + clamp(52px,12vw,84px))!important;background:#246b50!important;z-index:3!important}
+body.mobile-expanded .buttons button[data-key="KeyE"]{display:block!important;right:calc(4% + clamp(55px,13vw,90px))!important;bottom:calc(18% + clamp(52px,12vw,84px))!important;background:#7550a3!important;z-index:3!important}
+/* Flytta vapenbyte till vänster så att ANVÄND och BYT VAPEN inte ligger ovanpå varandra. */
+body.mobile-expanded .buttons button[data-key="KeyC"]{left:calc(4% + clamp(55px,13vw,90px))!important;right:auto!important;bottom:calc(12% + clamp(52px,12vw,84px))!important}
+@media (orientation:portrait){
+ body.mobile-expanded .buttons button[data-key="ArrowUp"]{bottom:calc(5% + clamp(52px,12vw,84px))!important}
+ body.mobile-expanded .buttons button[data-key="KeyC"]{bottom:calc(5% + clamp(52px,12vw,84px))!important}
+ body.mobile-expanded .buttons button[data-key="KeyE"]{bottom:calc(15% + clamp(52px,12vw,84px))!important}
+}
+/* Även i vanligt liggande mobilläge (utan stor skärm) ska stege och krok ha tydliga platser. */
+@media (orientation:landscape) and (max-height:520px){
+ body:not(.mobile-expanded) .buttons button[data-key="ArrowUp"]{display:block!important;left:3%!important;bottom:calc(8% + 66px)!important;background:#246b50!important}
+ body:not(.mobile-expanded) .buttons button[data-key="KeyE"]{display:block!important;right:16%!important;bottom:calc(8% + 66px)!important;background:#7550a3!important}
+}
+</style><style id="mobile-controls-110">
+/* Större pekytor och två tydliga knappgrupper i helskärm. */
+body.mobile-expanded{--vb-size:clamp(68px,17dvh,94px);--vb-gap:clamp(7px,2vw,13px);--vb-edge:clamp(8px,2vw,18px);--vb-bottom:max(10px,env(safe-area-inset-bottom));}
+body.mobile-expanded .buttons button[data-key]{width:var(--vb-size)!important;height:var(--vb-size)!important;min-width:var(--vb-size)!important;min-height:var(--vb-size)!important;max-width:none!important;max-height:none!important;font-size:clamp(12px,2.4vw,16px)!important;font-weight:850!important;border-radius:19px!important;opacity:.91!important;touch-action:none!important;user-select:none!important;-webkit-user-select:none!important;-webkit-touch-callout:none!important;line-height:1.1!important;}
+body.mobile-expanded .buttons button[data-key].is-pressed{opacity:1!important;filter:brightness(1.3);transform:scale(.96)}
+body.mobile-expanded .buttons button[data-key="ArrowLeft"]{left:var(--vb-edge)!important;right:auto!important;bottom:var(--vb-bottom)!important;top:auto!important}
+body.mobile-expanded .buttons button[data-key="ArrowRight"]{left:calc(var(--vb-edge) + var(--vb-size) + var(--vb-gap))!important;right:auto!important;bottom:var(--vb-bottom)!important;top:auto!important}
+body.mobile-expanded .buttons button[data-key="ArrowUp"]{left:var(--vb-edge)!important;right:auto!important;bottom:calc(var(--vb-bottom) + var(--vb-size) + var(--vb-gap))!important;top:auto!important}
+body.mobile-expanded .buttons button[data-key="KeyC"]{left:calc(var(--vb-edge) + var(--vb-size) + var(--vb-gap))!important;right:auto!important;bottom:calc(var(--vb-bottom) + var(--vb-size) + var(--vb-gap))!important;top:auto!important}
+body.mobile-expanded .buttons button[data-key="Space"]{right:var(--vb-edge)!important;left:auto!important;bottom:var(--vb-bottom)!important;top:auto!important}
+body.mobile-expanded .buttons button[data-key="KeyX"]{right:calc(var(--vb-edge) + var(--vb-size) + var(--vb-gap))!important;left:auto!important;bottom:var(--vb-bottom)!important;top:auto!important}
+body.mobile-expanded .buttons button[data-key="KeyF"]{right:var(--vb-edge)!important;left:auto!important;bottom:calc(var(--vb-bottom) + var(--vb-size) + var(--vb-gap))!important;top:auto!important}
+body.mobile-expanded .buttons button[data-key="KeyZ"]{right:calc(var(--vb-edge) + var(--vb-size) + var(--vb-gap))!important;left:auto!important;bottom:calc(var(--vb-bottom) + var(--vb-size) + var(--vb-gap))!important;top:auto!important}
+body.mobile-expanded .buttons button[data-key="KeyE"]{right:var(--vb-edge)!important;left:auto!important;bottom:calc(var(--vb-bottom) + 2 * (var(--vb-size) + var(--vb-gap)))!important;top:auto!important}
+@media (orientation:portrait){body.mobile-expanded{--vb-size:clamp(62px,17vw,83px);--vb-gap:7px;--vb-edge:7px;--vb-bottom:max(12px,env(safe-area-inset-bottom))}}
+@media (orientation:landscape) and (max-height:350px){body.mobile-expanded{--vb-size:clamp(56px,18dvh,68px);--vb-gap:5px;--vb-bottom:5px}}
+</style><style id="super-vd-deluxe">#shopInner{background:linear-gradient(155deg,#263e55,#101a2b 72%);box-shadow:0 0 0 5px #f4bd3920,0 24px 100px #000d}#shopItems button{background:linear-gradient(140deg,#354c65,#1c2c43);border:1px solid #f5d68b70;transition:transform .12s,filter .12s}#shopItems button:not(:disabled):hover{transform:translateY(-3px);filter:brightness(1.2)}#shopItems button strong{color:#ffda77}#shopMoney{font-size:27px;text-shadow:0 2px 14px #1fe58b55}.start-title{letter-spacing:.06em;text-shadow:0 5px 0 #49240c,0 0 22px #ffc65a80}.start-panel{border-color:#ffc34d;box-shadow:0 0 0 7px #f6bd2b16,0 30px 90px #000d}#shopBtn{background:linear-gradient(#ffcf68,#d28d23)}@media(max-width:700px){#shopItems button{min-height:78px}}</style><style>.official-logo{display:block;width:min(390px,95%);height:auto;margin:0 auto 12px}.header-logo{display:block;width:180px;max-width:100%;height:auto}.brand:has(.header-logo){padding:5px 9px;background:#000}.start-panel{background:linear-gradient(160deg,#15191d,#070809)}@media(max-width:700px){header .brand:has(.header-logo){display:inline-block!important}.header-logo{width:125px}}</style><style id="super-kicki-branding">
+.kicki-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;font-family:Impact,'Arial Black',system-ui,sans-serif;font-weight:1000;letter-spacing:.065em;color:#fff;text-shadow:3px 4px 0 #142332,0 0 18px #0008;transform:rotate(-1deg)}
+.kicki-logo span{display:block}.kicki-logo em{font-style:normal;color:#ffcc3e;text-shadow:3px 4px 0 #74351c}
+.kicki-logo small{display:block;margin-top:8px;letter-spacing:.2em;color:#bfe7f8;font-family:system-ui,sans-serif;font-weight:900;text-shadow:none}
+.kicki-logo-large{font-size:clamp(37px,8vw,66px);margin:5px auto 16px}.kicki-logo-large small{font-size:clamp(12px,2.5vw,18px)}
+.kicki-logo-star{font-size:25px;color:#ffd457;margin-bottom:4px}
+.kicki-logo-small{font-size:21px;transform:none;min-width:175px}.kicki-logo-small small{font-size:9px;margin-top:4px}
+.brand:has(.kicki-logo){background:#0c1828;border:2px solid #ffd05b;padding:8px 13px}
+@media(max-width:700px){header .brand:has(.kicki-logo){display:inline-block!important}.kicki-logo-small{font-size:15px;min-width:125px}.kicki-logo-small small{font-size:7px}}
+</style></head><body><section aria-label="Starta SUPER KICKI" aria-modal="true" id="startScreen" role="dialog"><div class="start-panel"><div class="kicki-logo kicki-logo-large"><span class="kicki-logo-star">★</span><span>SUPER <em>KICKI</em></span><small>BYGGKAOS DELUXE</small></div><div class="start-sub">Bygg. Bråka. Fakturera.</div><div aria-label="SUPER KICKI med basker och långt rött skägg" class="kicki-mascot" role="img"><div class="suit"></div><div class="face"></div><div class="eyes">••</div><div class="beard"></div><div class="hat"></div></div><p>40 banor • grävmaskiner, hemliga byggbodar &amp; krankrokar • nya bossar: anläggare och arbetsmiljö • topplista när servern är ansluten</p><button id="startGame" type="button">▶ SPELA NU</button><div class="start-foot">🤬 ”Byggkaos på högsta nivå!”<br/>Gratis • Inget konto krävs • 🏆 Rekord kräver server</div></div></section><header><div class="brand"><div class="kicki-logo kicki-logo-small"><span>SUPER <em>KICKI</em></span><small>BYGGKAOS DELUXE</small></div></div><div class="help">← → / A D = gå · Mellanslag = hoppa · ↑ = klättra · E = använd / billa / svinga · X = skjut · C = byt vapen · F = super-raseri · Z = MEGA-KICKI · P = pausa · R = starta om · H = rekordlista</div></header><div id="mobileHud"><span>📱 Håll inne pilarna</span><span>⬆ HOPPA · 🔁 BYT VAPEN</span></div><div id="rotateTip">📱 Vrid mobilen åt sidan och tryck på STOR SPELSKÄRM</div><section id="ultimateSettings"><label for="difficultyMode">🎮 Svårighet</label><select id="difficultyMode"><option value="easy">🟢 Bygglärling</option><option selected="" value="normal">🟡 Hantverkare</option><option value="hard">🔴 Byggmästare</option></select><span id="levelProgress">🏗️ Bana 1/40</span><div id="ultimateHelp">🚜 Grävmaskiner · 🪝 E = greppa krok eller billa sprickor i golvet · ↑ = klättra upp till höga bodar · 📦 Skjut lådor · 🟨 Fjädrar · ↔️ Transportband · 🏁 Tänk, klättra, studsa och skjut</div><button id="mapBtn">🗺️ BANKARTA</button></section><section hidden="" id="mapPanel"><h2>🗺️ BANÖVERSIKT – 40 BYGGPLATSER</h2><p>Spela om avklarade banor och samla stjärnor och ritningar.</p><div id="levelMap"></div><button id="closeMap" type="button">Stäng kartan</button></section><canvas aria-label="SUPER KICKI plattformsspel" height="540" id="game" width="960"></canvas><button id="largeScreenBtn" type="button">⛶ STOR SPELSKÄRM</button><div aria-label="Spelkontroller" class="buttons"><button class="move" data-key="ArrowLeft">◀ VÄNSTER</button><button class="move" data-key="ArrowRight">HÖGER ▶</button><button class="action" data-key="Space">⬆ HOPPA</button><button class="action" data-key="KeyX">🎯 SKJUT</button><button class="action" data-key="KeyE">🪝 ANVÄND</button><button class="move" data-key="ArrowUp">🪜 KLÄTTRA</button><button class="action" data-key="KeyC">🔁 BYT VAPEN</button><button class="action" data-key="KeyF">🔥 RASERI 100%!</button><button class="action" data-key="KeyZ">💸 MEGA 100%!</button><button id="sound">🔊 SVENSK RÖST</button><button id="restart">↻ NYTT SPEL</button><button id="leaderboardBtn">🏆 TOPP 10</button><button id="shopBtn">🛒 VAPEN &amp; BUTIK</button></div><section aria-label="Uppgraderingsbutik" hidden="" id="shopPanel"><div id="shopInner"><h2>🛒 SUPER KICKI • VERKTYG &amp; UPPGRADERINGAR</h2><p>Samla coins och välj själv: spikpistol, ammunition eller en uppgradering. Spelet pausas medan du handlar. Alla coins och inköp nollställs när du dör eller startar en ny omgång.</p><div id="shopMoney">🪙 0 coins</div><div id="weaponInfo"></div><div id="shopItems"></div><button id="shopClose">▶ FORTSÄTT SPELA</button></div></section><section hidden="" id="leaderboard"><h2>🏆 SUPER KICKI TOPP 10</h2><div hidden="" id="recordForm"><p id="recordMessage">Skriv in ditt namn!</p><div class="recordform"><input autocomplete="nickname" id="playerName" maxlength="16" placeholder="Ditt byggarnamn"/><button id="saveRecord">SPARA REKORD 🏆</button></div></div><ol id="scores"></ol><p id="emptyScores">Inga rekord ännu – bli först!</p><p class="small">Gemensam topplista online för alla spelare. Inget konto krävs.</p><div style="text-align:center"><button id="closeScores">STÄNG ✕</button></div></section><p class="sub">SUPER KICKI 10.6 – KRANKROKSBANOR! Coinsbutik, mejlkastare och spikpistol med ammunition, bättre mobilknappar. Tre röstlägen att testa: lugn, arg och raseri. Snyggare byggbanor och SUPER KICKI i Peaky Blinders-inspirerad kostym. Spela på mobil och dator! TOPP 10 med sparade rekord, kombobonus och snabbhetsbonus! Bygg upp MEGA-mätaren till 100% med guldfakturor, mynt och besegrade kunder. Tryck Z när den är full! Raseri byggs upp separat och aktiveras med F vid 100%. Samla superprylar, hoppa på gnälliga kunder och ta dig till SUPER KICKI-skylten. 40 byggbanor med ökande svårighetsgrad, fler bossmöten, saltade fakturor och arga kunder. Gratis, ingen inloggning – spela direkt!</p><script>
+const pickupIcons={};for(const [key,file] of Object.entries({coffee:"coffee",concrete:"concrete",mail:"gold",helmet:"helmet",coin:"coin",gold:"gold"})){const image=new Image();image.src="ikoner/"+file+".webp";pickupIcons[key]=image;}
+
+(()=>{'use strict';const c=document.querySelector('#game'),g=c.getContext('2d');g.imageSmoothingEnabled=false;const W=960,H=540,GROUND=470,keys={},sayLines=['VARFÖR ÄR INGET FÄRDIGT?!','HUR GÅR DET MED BYGGET?!','JAG VILL PRATA MED CHEFEN!','DET SKULLE VARA KLART I GÅR!','VAD ÄR DET HÄR FÖR TIMPRIS?!','KAN NI INTE BARA FIXA DET?!','JAG HAR RINGT SJU GÅNGER!','VEM HAR PARKERAT GRÄVMASKINEN I MIN RABATT?!','DET HÄR ÄR INTE DEN FÄRG JAG VALDE!','MIN SVÅGER KAN GÖRA DET BILLIGARE!'];let stageStarted=0,combo=0,comboAt=0,recordPending=false,scoreSaved=false,leaderboardOpen=false;const RECORD_KEY='super_kicki_v8_scores';const UPGRADE_KEY='super_kicki_v20_upgrades',WALLET_KEY='super_kicki_v20_wallet';
+const upgrades=[{id:'boots',name:'🥾 Snabba stövlar',desc:'+12 % fart per nivå',cost:700,max:2},{id:'armor',name:'🦺 VD-skyddsväst',desc:'+1 hjärta direkt',cost:950,max:2},{id:'jump',name:'🦘 Hydrauliska stövlar',desc:'Högre hopp, når nya vägar',cost:850,max:2}];
+let upgradeLevels={},wallet=0,shopOpen=false,shopWasPaused=false;const WEAPON_KEY='kicki4_weapon',AMMO_KEY='kicki4_ammo';let nailUnlocked=false,nailAmmo=0,weapon='mail',barriers=[];function saveWeapon(){/* Utrustningen gäller bara pågående omgång. */}function switchWeapon(){if(!nailUnlocked){message('KÖP SPIKPISTOLEN I BUTIKEN FÖRST!');return}weapon=weapon==='mail'?'nail':'mail';message(weapon==='nail'?'SPIKPISTOL! '+nailAmmo+' SPIK KVAR':'MEJLKASTAREN – OBEGRÄNSAT MED MEJL');}function weaponLabel(){return weapon==='nail'?'🔩 SPIKPISTOL ('+nailAmmo+' spik)':'✉️ MEJL (∞)'}
+
+function levelOf(id){return Math.max(0,Math.min(3,Number(upgradeLevels[id])||0))}
+function saveUpgrades(){/* Pengar och inköp sparas inte mellan omgångar. */}
+function earn(amount){wallet+=Math.max(0,Math.round(amount*.22));saveUpgrades()}
+function renderShop(){document.querySelector('#shopMoney').textContent='🪙 '+wallet.toLocaleString('sv-SE')+' coins';document.querySelector('#weaponInfo').textContent='VALT VAPEN: '+weaponLabel();const holder=document.querySelector('#shopItems');holder.replaceChildren();function addBuy(name,desc,price,action,disabled=false){const b=document.createElement('button');b.disabled=disabled||wallet<price;b.innerHTML='<strong>'+name+'</strong>'+desc+'<small>'+price.toLocaleString('sv-SE')+' coins</small>';b.onclick=()=>{if(wallet<price)return;wallet-=price;action();saveUpgrades();saveWeapon();renderShop()};holder.append(b)}if(!nailUnlocked)addBuy('🔩 SPIKPISTOL','Snabb, stark och slår sönder träbarriärer. 25 spik ingår.',500,()=>{nailUnlocked=true;nailAmmo+=25;weapon='nail';message('SPIKPISTOL UPPLÅST! TRYCK C FÖR ATT BYTA!')});else addBuy('🔩 30 SPIK','Fyll på ammunition till spikpistolen.',150,()=>{nailAmmo+=30;message('30 NYA SPIK!')});addBuy('❤️ Första hjälpen','Återställ ett förlorat hjärta.',360,()=>{life=Math.min(hearts()+levelOf('armor'),life+1);message('ETT HJÄRTA ÅTERSTÄLLT!')},life>=hearts()+levelOf('armor'));addBuy('⚡ Raseriboost','Fyll på 35 % av raserimätaren.',420,()=>{rage=Math.min(100,rage+35);message('RASERI +35%!')},rage>=100);addBuy('💥 MEGA-laddning','Fyll på 30 % av MEGA-mätaren.',540,()=>{megaEnergy=Math.min(100,megaEnergy+30);message('MEGA +30%!')},megaEnergy>=100);upgrades.forEach(u=>{const n=levelOf(u.id),price=u.cost*(n+1);if(n>=u.max)return;addBuy(u.name,u.desc+' · nivå '+n+'/'+u.max,price,()=>{upgradeLevels[u.id]=n+1;if(u.id==='armor')life=Math.min(8,life+1);message('UPPGRADERAD: '+u.name+'!')})})}
+function openShop(){if(shopOpen)return;shopWasPaused=paused;shopOpen=true;paused=true;renderShop();document.querySelector('#shopPanel').hidden=false}
+function closeShop(){if(!shopOpen)return;shopOpen=false;document.querySelector('#shopPanel').hidden=true;paused=shopWasPaused}
+let fallingLoads=[],craneSites=[];let victoryX=115,victoryClaimed=false,victoryTick=0;let goldSuit=false,blueprints=[],grappleAngle=0,grappleSpeed=0,wallTouch=0,weatherDrops=[],lastBossKind='',cinematicUntil=0;const PLAN_KEY='kicki9_blueprints';try{blueprints=JSON.parse(localStorage.getItem(PLAN_KEY)||'[]');goldSuit=localStorage.getItem('kicki9_goldsuit')==='yes'}catch(e){};let audio=true,level=0,cam=0,paused=false,win=false,dead=false,score=0,life=3,rage=0,rageTime=0,megaTime=0,megaEnergy=0,frame=0,toast='',toastT=0,bullets=[],bossShots=[],customerShots=[],particles=[],enemies=[],items=[],platforms=[],boss=null,exitX=0,worldW=0,siteProps=[],hazards=[],scaffoldCrates=[],movingPlatforms=[],springs=[],excavators=[],rockBlocks=[],conveyors=[],hooks=[],ladders=[],cabins=[],checkpoint=null,levelHits=0,levelStars=0,levelCleared=[],difficulty="normal";let player={x:70,y:GROUND-55,w:31,h:55,vx:0,vy:0,on:false,jumps:0,face:1,inv:0,power:'',powerT:0,shoot:0};const names=['BYGGARBETSPLATSEN','FAKTURAKAOS','KUNDERNAS HÄMND','KAFFEKRISEN','DEN FÖRBANNADE GRÄVMASKINEN','BYGGINSPEKTIONEN','BETONGHELVETET','FAKTURAFABRIKEN','MEGA-KICKI','DEN ARGASTE KUNDEN','MARKARBETET','GRÄVMASKINSKAOSET','ANLÄGGARNAS REVANSCH','ARBETSMILJÖINSPEKTIONEN','BYGGCHEFENS REVANSCH','HAMNBYGGET','SKOGENS BYGGPLATS','VINTERBYGGET','TUNNELKAOSET','ULTIMATA BYGGMÄSTAREN','PLÅTSLAGARENS VERKSTAD','MULTICUTS VIRVELVIND','STÅLBALKARNAS DAL','UNDERJORDISKA TUNNELN','BETONGJAKTEN','NATTSKIFTET','TAKKRANARNAS STAD','KROSSVERKET','LAGERLABYRINTEN','PLÅTSTORMEN','DEN ÖVERGIVNA GRUVAN','RULLBANDSRUSET','FROST OCH FAKTUROR','MIKES REVANSCH','BROBYGGET','BILLMASKINENS HEMLIGHET','STÅL OCH SKRUV','BYGGKAOS I MÖRKRET','PLÅTSLAGARENS ÅTERKOMST','SUPER KICKIS SISTA BYGGE'];const TOTAL_LEVELS=names.length;const PROGRESS_KEY='super_kicki_ultimate_progress';try{levelCleared=JSON.parse(localStorage.getItem(PROGRESS_KEY)||'[]')}catch(e){levelCleared=[]}function hearts(){return difficulty==='easy'?5:difficulty==='hard'?2:3}function difficultyDamage(){return difficulty==='hard'?1:0}function saveLevelProgress(){try{localStorage.setItem(PROGRESS_KEY,JSON.stringify(levelCleared))}catch(e){}}function progressUI(){const el=document.getElementById('levelProgress');if(el)el.textContent='🏗️ Bana '+(level+1)+'/'+TOTAL_LEVELS+' · ⭐ '+levelCleared.filter(Boolean).length+'/'+TOTAL_LEVELS+' klara · 📜 '+blueprints.filter(Boolean).length+' ritningar';renderLevelMap()}let lastSpoken=0,voiceChoice=null,voiceStyle='gangster';let voiceVolume=35;try{const saved=localStorage.getItem('superKickiVoiceVolume');if(saved!==null)voiceVolume=Math.max(0,Math.min(100,Number(saved)||0))}catch(e){};let lastMobQuipFrame=-9999;
+const gangsterLines={
+ calm:'Hördu. Vi bygger ordentligt här. Och vi tar betalt för jobbet.',
+ angry:'Du beställde ändringar. Då kostar det. Punkt slut!',
+ fury:'NU KÖR VI SÅ DET RYKER!'
+};
+function chooseVoice(){
+ if(!('speechSynthesis' in window))return;
+ const voices=speechSynthesis.getVoices();
+ const swedish=voices.filter(v=>/^sv(?:-|$)/i.test(v.lang));
+ // Prefer natural-sounding Swedish voices; male-sounding names when available.
+ const rank=v=>(/mattias|olof|erik|jonas|magnus|anders|male/i.test(v.name)?35:0)+(/natural|neural|premium|enhanced/i.test(v.name)?25:0)+(v.localService?3:0);
+ swedish.sort((a,b)=>rank(b)-rank(a));
+ voiceChoice=swedish[0]||null;
+ const status=document.getElementById('voiceStatus');
+ if(status)status.textContent=voiceChoice?'Röst: '+voiceChoice.name:'Ingen svensk systemröst hittad – webbläsaren väljer reservröst';
+}
+if('speechSynthesis' in window){chooseVoice();speechSynthesis.addEventListener?.('voiceschanged',chooseVoice)}
+function speak(t,forced=false,mode='auto'){
+ if(!audio||voiceVolume===0||!('speechSynthesis' in window)||(!forced&&Date.now()-lastSpoken<1800))return;
+ try{
+  lastSpoken=Date.now();speechSynthesis.cancel();
+  const fury=mode==='fury'||(mode==='auto'&&/RASERI|SALTA FAKTUR|MEGA-KICKI|NU JÄVLAR/i.test(t));
+  const angry=mode==='angry'||(mode==='auto'&&!fury&&/FAN|JÄVL|IDIOT|FÅTT NOG|REKORD|KLAGOMÅL|ARGT|REVANSCH/i.test(t));
+  const u=new SpeechSynthesisUtterance(t.replace(/!{2,}/g,'!').replace(/\s+/g,' '));
+  u.lang='sv-SE';if(voiceChoice)u.voice=voiceChoice;
+  // Distinct delivery, not a claim of real emotional voice acting.
+  u.rate=fury?1.19:angry?1.09:0.86;
+  u.pitch=fury?0.64:angry?0.73:0.78;
+  u.volume=voiceVolume/100;
+  speechSynthesis.speak(u);
+ }catch(e){}
+}
+function message(t,talk=false){toast=t;toastT=175;if(talk)speak(t)}function rand(n){return Math.random()*n}let onlineScores=[],runToken='',recordBusy=false;
+async function beginRun(){try{const r=await fetch('/api/leaderboard?mode=session',{cache:'no-store'});if(r.ok){const d=await r.json();runToken=d.token||''}}catch(e){runToken=''}}
+async function renderScores(){const list=document.querySelector('#scores');list.replaceChildren();const empty=document.querySelector('#emptyScores');empty.textContent='Hämtar gemensamma rekord…';empty.hidden=false;try{const r=await fetch('/api/leaderboard',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();onlineScores=Array.isArray(d.scores)?d.scores:[];empty.hidden=onlineScores.length>0;empty.textContent='Inga rekord ännu – bli först!';onlineScores.forEach((r,i)=>{const li=document.createElement('li');li.append(document.createTextNode((i+1)+'. '+String(r.name).slice(0,16)+' '));const pts=document.createElement('span');pts.textContent=Number(r.score).toLocaleString('sv-SE')+' p';li.append(pts);list.append(li)})}catch(e){empty.textContent='Onlinetopplistan är inte ansluten. Lägg till /api/leaderboard på servern för gemensamma rekord.'}}
+function showScores(show=true){leaderboardOpen=show;document.querySelector('#leaderboard').hidden=!show;if(show)renderScores();if(show&&recordPending)document.querySelector('#leaderboard').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function finishRecord(){if(win&&!victoryClaimed)return;if(scoreSaved)return;scoreSaved=true;recordPending=true;document.querySelector('#recordMessage').textContent='🏆 SPARA DINA '+score.toLocaleString('sv-SE')+' POÄNG PÅ VÄRLDSLISTAN!';document.querySelector('#recordForm').hidden=false;showScores(true)}
+async function saveRecord(){if(!recordPending||recordBusy)return;const input=document.querySelector('#playerName');const name=(input.value.trim()||'Anonym byggare').slice(0,16);const msg=document.querySelector('#recordMessage');if(!runToken){msg.textContent='Ingen spelbiljett. Starta en ny omgång och försök igen.';return}recordBusy=true;msg.textContent='Sparar rekord online…';try{const r=await fetch('/api/leaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,score,token:runToken})});const d=await r.json();if(!r.ok)throw Error(d.error||'Kunde inte spara');recordPending=false;runToken='';document.querySelector('#recordForm').hidden=true;await renderScores();message('REKORDET SPARAT ONLINE!')}catch(e){msg.textContent='Kunde inte spara: '+e.message}finally{recordBusy=false}}
+function comboBonus(){if(frame-comboAt<190)combo++;else combo=1;comboAt=frame;if(combo>=2){const extra=Math.min(1000,(combo-1)*100);score+=extra;message('KUNDKOMBO x'+combo+'! +'+extra+' BONUSPOÄNG!')}}function reset(all=true){tunnelRoom=null;if(all){wallet=0;upgradeLevels={};nailUnlocked=false;nailAmmo=0;weapon='mail';try{localStorage.removeItem('kicki9_shop');localStorage.removeItem('kicki9_equipment')}catch(e){};beginRun();scoreSaved=false;recordPending=false;document.querySelector('#recordForm').hidden=true;showScores(false);combo=0;level=0;score=0;life=hearts()+levelOf('armor');rage=0;megaTime=0;megaEnergy=0;win=false;dead=false;victoryX=115;victoryClaimed=false;victoryTick=0;levelHits=0}player={x:70,y:GROUND-55,w:31,h:55,vx:0,vy:0,on:false,jumps:0,face:1,inv:90,power:'',powerT:0,shoot:0};bullets=[];bossShots=[];customerShots=[];particles=[];cam=0;load();paused=false}function siteTheme(n){if(n===15)return 'harbor';if(n===16)return 'forest';if(n===17)return 'winter';if(n===18)return 'tunnel';if(n===19)return 'final';if(n>=20)return ['industrial','wind','quarry','tunnel','concrete','night','city','quarry','factory','wind','tunnel','industrial','winter','wind','harbor','quarry','industrial','night','factory','final'][(n-20)%20];return ['city','forest','industrial','village','quarry','rain','concrete','factory','night','city','quarry','quarry','wind','industrial','city'][n]||'city'}
+function machineLevel(n){return [4,7,11,15,19].includes(n)}
+function stormLevel(n){return [5,12,15,17].includes(n)}
+
+// SUPER KICKI DELUXE: variationshinder. Alla använder samma världkoordinater som spelaren.
+let wreckers=[],lifts=[],inspectors=[],forklifts=[],coffeeStops=[],offices=[],digSpots=[],steelBeams=[],tunnelDoors=[],pitMarkers=[];
+function solidAt(x){return platforms.some(p=>!p.scaffold&&x>=p.x+45&&x<=p.x+p.w-45)}
+function initExtras(){wreckers=[];lifts=[];inspectors=[];forklifts=[];coffeeStops=[];offices=[]}
+function prepareExtras(){
+ const safe=x=>solidAt(x)&&x>300&&x<worldW-380;
+ for(let x=920;x<worldW-430;x+=1900){
+  if(level>=2&&level%3!==0&&safe(x))wreckers.push({x,anchorY:118,len:235,phase:x*.009});
+  if(level>=1&&safe(x+330)){const lx=x+330;const shaftClear=!platforms.some(p=>p.scaffold&&p.x<lx+130&&p.x+p.w>lx-20&&p.y>GROUND-245)&&!movingPlatforms.some(p=>p.x<lx+130&&p.x+p.w>lx-20)&&!ladders.some(l=>l.x<lx+130&&l.x+l.w>lx-20)&&!conveyors.some(c=>c.x<lx+130&&c.x+c.w>lx-20);if(shaftClear)lifts.push({x:lx,y:GROUND-22,w:110,h:16,baseY:GROUND-22,range:165,phase:x*.004,dy:0});}
+  if(level>=3&&level%2===1&&safe(x+600))inspectors.push({x:x+600,y:GROUND-58,w:38,h:58,hp:7+level,alive:true,cooldown:130,active:0});
+ }
+ if(level>=2){for(let x=1450;x<worldW-400;x+=2500)if(safe(x))forklifts.push({x,y:GROUND-57,w:95,h:57,carrying:false,used:false});}
+ for(let x=540;x<worldW-350;x+=1700)if(safe(x))coffeeStops.push({x,y:GROUND-57,used:false});
+ if(level>=2){const x=worldW*.7|0;const ground=platforms.find(p=>!p.scaffold&&p.w>250&&p.x<=x&&p.x+p.w>=x);if(ground)offices.push({x:Math.max(ground.x+65,Math.min(ground.x+ground.w-95,x)),y:GROUND-92,used:false});}
+}
+function nearOffice(){return offices.find(o=>!o.used&&Math.abs(player.x-o.x)<78&&Math.abs(player.y+player.h-GROUND)<42)}
+function nearCoffee(){return coffeeStops.find(o=>!o.used&&Math.abs(player.x-o.x)<70&&Math.abs(player.y+player.h-GROUND)<42)}
+function nearForklift(){return forklifts.find(o=>Math.abs(player.x-o.x)<95&&Math.abs(player.y+player.h-GROUND)<45)}
+function nearDig(){return digSpots.find(d=>!d.opened&&Math.abs(player.x+player.w/2-d.x)<53&&Math.abs(player.y+player.h-GROUND)<25)}
+function useJackhammer(){const d=nearDig();if(!d)return;d.hits++;burst(d.x,GROUND-5,'#e7bb70',9);if(d.hits>=3){d.opened=true;score+=120;const rare=(level*17+Math.floor(d.x/50))%7===0;if(rare){items.push({x:d.x-13,y:GROUND-60,type:'gold',got:false});message('⛏️ HEMLIG FAKTURA I GOLVET!')}else if((level+Math.floor(d.x/100))%3!==0){items.push({x:d.x-13,y:GROUND-60,type:'coin',got:false});message('⛏️ ETT LITET FYND UNDER BETONGEN!')}else message('⛏️ BARA GRUS! INGEN SKATT DEN HÄR GÅNGEN.');}else message('⛏️ BRRR! BILLAR BETONG '+d.hits+'/3');}
+function openOffice(){const o=nearOffice();if(!o)return;o.used=true;score+=650;earn(45);megaEnergy=Math.min(100,megaEnergy+12);burst(o.x+40,o.y+25,'#f9d56b',25);message('HEMLIGT VD-KONTOR! +45 COINS OCH MEGA!',false)}
+function drinkCoffee(){const o=nearCoffee();if(!o)return;o.used=true;life=Math.min(hearts()+levelOf('armor'),life+1);burst(o.x+20,o.y+20,'#ffe4a2',16);message('KAFFEPAUS! ETT HJÄRTA TILLBAKA!',true)}
+function toggleForklift(){const f=nearForklift();if(!f)return;f.carrying=!f.carrying;message(f.carrying?'TRUCKEN ÄR IGÅNG! KÖR MED PILARNA!':'TRUCKEN PARKERAD!',true)}
+function updateExtras(){
+ if(!platforms.length)return;
+ for(const lift of lifts){const old=lift.y;lift.y=lift.baseY-lift.range*(.5+.5*Math.sin(frame*.018+lift.phase));lift.dy=lift.y-old;
+ }
+ for(const w of wreckers){const a=Math.sin(frame*.019+w.phase)*.86;const bx=w.x+Math.sin(a)*w.len,by=w.anchorY+Math.cos(a)*w.len;w.ballX=bx;w.ballY=by;
+  if(Math.hypot(player.x+player.w/2-bx,player.y+player.h/2-by)<42){damage();}
+ }
+ for(const f of forklifts){if(!f.carrying)continue;const move=(keys.ArrowRight||keys.KeyD?1:0)-(keys.ArrowLeft||keys.KeyA?1:0);const nx=f.x+move*2.9;if(solidAt(nx+45))f.x=nx;
+  if(Math.abs(player.x-f.x)<110){player.x=f.x+32;player.y=f.y-36;player.vx=0;player.vy=0;player.on=true;}
+  for(const b of barriers)if(b.hp>0&&Math.abs(b.x-(f.x+f.w))<22){b.hp=0;burst(b.x,b.y+55,'#cda76b',15);message('TRUCKEN RÖJDE VÄGEN!');}
+ }
+ for(const i of inspectors){if(!i.alive)continue;const near=Math.abs(player.x-i.x)<420;if(near)i.active=210;else i.active=Math.max(0,i.active-1);if(!i.active)continue;
+  if(solidAt(i.x+19)){i.x+=Math.sign(player.x-i.x)*Math.min(1.15,Math.abs(player.x-i.x)/35);}if(--i.cooldown<=0&&Math.abs(player.x-i.x)<340){i.cooldown=175+Math.floor(rand(75));customerShots.push({x:i.x+18,y:i.y+12,vx:(player.x<i.x?-2.5:2.5),vy:-3.7,t:140,spin:0,type:'BÖTER'});message('INSPEKTÖREN KASTAR BÖTER!');}
+  if(overlap(player,i))damage();
+  for(const b of bullets)if(b.t>0&&overlap({x:b.x,y:b.y,w:24,h:15},i)){b.t=0;i.hp-=b.nail?2:1;burst(i.x+20,i.y+20,'#ffe27d',5);if(i.hp<=0){i.alive=false;score+=400;earn(65);message('DÄR FICK DU DIN SLUTFAKTURA!',true);}}
+ }
+}
+function drawExtras(){
+ for(const w of wreckers){const bx=w.ballX??w.x,by=w.ballY??w.anchorY+w.len;g.strokeStyle='#4b515c';g.lineWidth=7;g.beginPath();g.moveTo(w.x,w.anchorY);g.lineTo(bx,by);g.stroke();rect(w.x-42,w.anchorY-10,84,18,'#e9b849');g.fillStyle='#3a4653';g.beginPath();g.arc(bx,by,35,0,Math.PI*2);g.fill();g.strokeStyle='#aeb9c4';g.lineWidth=5;g.stroke();text('!',bx,by+9,30,'#ffcc55','center')}
+ for(const l of lifts){rect(l.x+8,l.y,94,15,'#e2b343');rect(l.x+14,l.y+15,9,GROUND-l.y-15,'#7b8895');rect(l.x+89,l.y+15,9,GROUND-l.y-15,'#7b8895');for(let x=l.x+14;x<l.x+98;x+=21)rect(x,l.y+4,11,4,'#3b4550')}
+ for(const i of inspectors){if(!i.alive)continue;rect(i.x,i.y+20,38,38,'#e4c45e');rect(i.x+4,i.y+4,30,25,'#efb88f');rect(i.x+2,i.y,34,10,'#f6e36e');rect(i.x+7,i.y+35,24,6,'#e9ecf2');rect(i.x+28,i.y+26,20,26,'#f4f2e9');text('!',i.x+18,i.y-13,18,'#ff5e45','center')}
+ for(const f of forklifts){rect(f.x,f.y+19,75,29,'#e5a927');rect(f.x+4,f.y+3,12,35,'#505b66');rect(f.x+13,f.y+3,37,5,'#505b66');rect(f.x+73,f.y-9,7,65,'#4a5562');rect(f.x+74,f.y+47,34,7,'#9da7ac');for(const x of [f.x+16,f.x+62]){g.fillStyle='#27333e';g.beginPath();g.arc(x,f.y+52,10,0,7);g.fill()}if(f.carrying)text('KÖR',f.x+38,f.y-17,12,'#ffed95','center')}
+ for(const c of coffeeStops){rect(c.x,c.y,43,57,c.used?'#58616c':'#a85b37');rect(c.x+5,c.y+7,33,20,'#302d31');text('☕',c.x+21,c.y+25,18,'#fff','center');if(!c.used)text('E',c.x+21,c.y-10,14,'#ffe88e','center')}
+ for(const o of offices){rect(o.x,o.y,87,92,o.used?'#68798a':'#3b6987');rect(o.x+7,o.y+8,73,14,'#f5c858');text('VD',o.x+43,o.y+20,14,'#15263a','center');rect(o.x+32,o.y+45,24,47,'#263442');rect(o.x+39,o.y+65,4,5,'#f5c858');if(!o.used)text('E',o.x+44,o.y-12,14,'#ffe88e','center')}
+}
+
+// Slutlig kollisionsstädning efter att ALLA bandelar har skapats.
+// Rörliga hissar bedöms över hela sin rörelsebana, inte bara startläget.
+function cleanLevelLayout(){
+ const hit=(a,b,pad=0)=>a.x<b.x+b.w+pad&&a.x+a.w>b.x-pad&&a.y<b.y+b.h+pad&&a.y+a.h>b.y-pad;
+ const deck=platforms.filter(p=>p.scaffold).sort((a,b)=>(Number(b.tower)-Number(a.tower))||(Number(b.crane)-Number(a.crane))||a.x-b.x);
+ const kept=[];
+ for(const p of deck){if(!kept.some(q=>hit(p,q,5)))kept.push(p);}
+ platforms=platforms.filter(p=>!p.scaffold||kept.includes(p));
+ scaffoldCrates=scaffoldCrates.filter(c=>kept.some(p=>c.x>=p.x&&c.x+c.w<=p.x+p.w&&Math.abs(c.y+c.h-p.y)<3));
+ // En vanlig hiss får inte skära genom ställningar, stegar, rullband eller torn.
+ lifts=lifts.filter(l=>{
+  const path={x:l.x-6,y:l.baseY-l.range-20,w:l.w+12,h:l.range+45};
+  return !kept.some(p=>hit(path,p,8))&&!ladders.some(q=>hit(path,q,12))
+   &&!movingPlatforms.some(m=>hit(path,{x:m.baseX??m.x-20,y:m.y-20,w:m.w+(m.range||0)*2+40,h:m.h+40}))
+   &&!conveyors.some(c=>hit(path,c,8))&&!tunnelDoors.some(d=>hit(path,{x:d.x,y:(d.y??GROUND)-85,w:d.w,h:85}));
+ });
+ // Skydda tunnelöppningar mot föremål som döljer ingången.
+ tunnelDoors=tunnelDoors.filter(d=>{
+  const r={x:d.x,y:(d.y??GROUND)-80,w:d.w,h:80};
+  return !excavators.some(e=>hit(r,e,14))&&!rockBlocks.some(b=>!b.broken&&hit(r,b,14))
+    &&!barriers.some(b=>hit(r,b,12))&&!lifts.some(l=>hit(r,{x:l.x,y:l.baseY-l.range,w:l.w,h:l.range+20}));
+ });
+ // Markobjekt ska inte stå i varandra eller framför en tunnel.
+ const occupied=[];
+ const clear=o=>!occupied.some(q=>hit(o,q,18))&&!tunnelDoors.some(d=>!d.deck&&hit(o,{x:d.x,y:(d.y??GROUND)-90,w:d.w,h:90},14));
+ for(const arr of [offices,coffeeStops,forklifts]){
+  const clean=[];
+  for(const o of arr){const rect={x:o.x,y:o.y,w:o.w||85,h:o.h||65};if(clear(rect)){clean.push(o);occupied.push(rect);}}
+  arr.splice(0,arr.length,...clean);
+ }
+ digSpots=digSpots.filter(d=>!occupied.some(o=>d.x>=o.x-60&&d.x<=o.x+o.w+60));
+ steelBeams=steelBeams.filter(b=>!lifts.some(l=>Math.abs(l.x+l.w/2-b.x)<b.len*.7+90));
+}
+function load(){tunnelRoom=null;initExtras();fallingLoads=[];craneSites=[];stageStarted=frame;levelHits=0;movingPlatforms=[];springs=[];scaffoldCrates=[];excavators=[];rockBlocks=[];conveyors=[];hooks=[];ladders=[];cabins=[];grapple=null;driving=null;checkpoint=null;progressUI();worldW=3600+Math.min(level,16)*175;exitX=worldW-105;platforms=[];const pitStarts=[];for(let x=630+(level%3)*65;x<worldW-530;x+=790+(level%4)*45){pitStarts.push(x)}pitMarkers=pitStarts.map((x,i)=>({x,w:i%2===1?345:105}));let groundStart=0;for(let i=0;i<pitStarts.length;i++){const x=pitStarts[i];const width=i%2===1?345:105;platforms.push({x:groundStart,y:GROUND,w:x-groundStart,h:70});groundStart=x+width}platforms.push({x:groundStart,y:GROUND,w:worldW-groundStart,h:70});// Parkour: korta separata ställningar, tydliga luckor och två valbara höjdnivåer.
+for(let x=235,i=0;x<worldW-240;x+=320+(level%4)*14,i++){
+ if(i%7===5)continue; // större avbrott: ingen motorväg över banan
+ const y=GROUND-([120,128,116,132,124,118,130][i%7]);
+ const w=i%4===2?108:124;
+ // Vanliga ställningar måste stå över fast mark, inte sväva över ett grävhål.
+ const supported=platforms.some(ground=>!ground.scaffold&&ground.y===GROUND&&x+12>=ground.x&&x+w-12<=ground.x+ground.w);
+ if(!supported)continue;
+ platforms.push({x,y,w,h:17,scaffold:true});
+ if(i%5===1){ // bonusavsats, men inte en genväg upp till de höga tornen
+  platforms.push({x:x+35,y:y-65,w:94,h:17,scaffold:true,upper:true});
+ }
+ if(i%6===2){scaffoldCrates.push({x:x+Math.min(65,w-36),y:y-30,w:30,h:30,hp:2,broken:false});}
+ if(level>=1&&i%7===3){const candidate=platforms[platforms.length-1];if(candidate.scaffold&&!candidate.upper){candidate.fragile=true;candidate.timer=0;candidate.gone=0;}}
+ if(level>=4&&i%7===6&&!platforms.some(p=>p.scaffold&&p.x<x+305&&p.x+p.w>x+95&&Math.abs(p.y-(GROUND-155))<65)){movingPlatforms.push({x:x+110,y:GROUND-155,w:100,h:16,baseX:x+110,range:78,phase:i*0.7,dx:0});}
+ // Studsplattor placeras separat i fria hoppkorridorer.
+}
+for(let i=0;i<pitStarts.length;i++){const x=pitStarts[i];const big=i%2===1;
+ if(big){
+  // En riktig krankroksutmaning: långt gap och två avsatser. Vanligt hopp räcker inte.
+  platforms.push({x:x-132,y:GROUND-110,w:112,h:17,scaffold:true,crane:true});
+  platforms.push({x:x+365,y:GROUND-110,w:115,h:17,scaffold:true,crane:true});
+  if(i%4===1){hooks.push({x:x+165,y:GROUND-315,length:245,phase:i*1.4,challenge:true});}else{movingPlatforms.push({x:x+105,y:GROUND-105,w:145,h:18,baseX:x+105,range:95,phase:i*1.1,dx:0,constructionLift:true});}
+ }else{
+  platforms.push({x:x-112,y:GROUND-90,w:88,h:17,scaffold:true});
+  platforms.push({x:x+133,y:GROUND-108,w:90,h:17,scaffold:true});
+ }
+}
+// Vertikala parkour-torn, tydliga stegar och hemliga byggbodar.
+for(let tower=0,base=850;base<worldW-550;base+=1280,tower++){
+ const ys=[GROUND-245,GROUND-325,GROUND-405];
+ ys.forEach((y,j)=>{const x=base+58*j;platforms.push({x,y,w:145,h:17,scaffold:true,tower:true,fragile:level>=2&&j===1,timer:0,gone:0});
+ // En sammanhängande stege i tornet gör klättringen nödvändig och möjlig.
+ if(j===0)ladders.push({x:base+126,y:ys[2]-8,w:25,h:GROUND-ys[2]+8,tower:true});
+ });
+ cabins.push({x:base+132,y:ys[2]-65,w:95,h:65,opened:false,topY:ys[2]});
+ // Krankrokar finns nu vid de stora gapen, inte som dekoration bredvid torn.
+ // Varje torn får en studsplatta på marken framför första avsatsen.
+}
+// Inga rullband på marken: endast krankrokarnas avsatser får band.
+// Enstaka stora gula grävmaskiner, med stenblock som kan öppna en bonusväg.
+// De första två banorna lär ut parkour utan maskiner.
+if(machineLevel(level)){
+ const ground=platforms.filter(p=>!p.scaffold&&p.w>550&&p.x>300&&p.x<worldW-850)[0];
+ if(ground){const pos=Math.round(Math.max(ground.x+90,Math.min(ground.x+ground.w-450,ground.x+220)));
+  excavators.push({x:pos,y:GROUND-94,w:175,h:94,arm:0,active:false});
+  rockBlocks.push({x:pos+300,y:GROUND-65,w:76,h:65,broken:false});
+ }
+}
+checkpoint={x:Math.round(worldW*.49),active:false};const safeGround=platforms.filter(p=>!p.scaffold&&p.w>180).sort((a,b)=>Math.abs(a.x+a.w/2-checkpoint.x)-Math.abs(b.x+b.w/2-checkpoint.x))[0];if(safeGround)checkpoint.x=Math.round(Math.max(safeGround.x+70,Math.min(safeGround.x+safeGround.w-70,checkpoint.x)));
+// Varje studsplatta får en fri uppfart och en tydlig landningsavsats.
+// Standardställningar får inte skära igenom studskorridoren.
+for(let base=850;base<worldW-550;base+=1280){
+ const x=base-142;
+ const solidGround=platforms.some(p=>!p.scaffold&&x>=p.x+18&&x+46<=p.x+p.w-18);
+ if(!solidGround)continue;
+ const clearLeft=x-24,clearRight=base+180;
+ platforms=platforms.filter(p=>!p.scaffold||p.tower||p.x+p.w<clearLeft||p.x>clearRight);
+ movingPlatforms=movingPlatforms.filter(p=>p.x>clearRight+70||p.x+p.w<clearLeft-70);
+ // Lådorna får bara stå på en kvarvarande plattform.
+ scaffoldCrates=scaffoldCrates.filter(cr=>platforms.some(p=>p.scaffold&&!p.tower&&cr.x>=p.x&&cr.x+cr.w<=p.x+p.w&&Math.abs(cr.y+cr.h-p.y)<2));
+ springs.push({x,y:GROUND-18,w:46,h:18,targetX:base+65,targetY:GROUND-245});
+}
+// Håll krankroksgap fria från broar, fjädrar och transportband.
+for(let i=0;i<pitStarts.length;i++)if(i%2===1){const x=pitStarts[i];
+ platforms=platforms.filter(p=>!p.scaffold||p.crane||p.x+p.w<x-145||p.x>x+490);
+ springs=springs.filter(sp=>sp.x+sp.w<x-145||sp.x>x+490);
+ conveyors=conveyors.filter(b=>b.x+b.w<x-130||b.x>x+490);
+ movingPlatforms=movingPlatforms.filter(p=>p.constructionLift||p.x+p.w<x-145||p.x>x+490);
+}
+// Var tredje stora klyfta får en bygglift i stället för ännu en krankrok.
+for(let i=0;i<pitStarts.length;i++)if(i%2===1&&i%6===3){
+ const gap=pitStarts[i];hooks=hooks.filter(h=>Math.abs(h.x-(gap+165))>12);
+ movingPlatforms.push({x:gap+20,y:GROUND-105,w:135,h:17,baseX:gap+20,range:100,phase:i*1.1,dx:0});
+ movingPlatforms.push({x:gap+180,y:GROUND-135,w:135,h:17,baseX:gap+180,range:75,phase:i*1.7,dx:0});
+}
+// Frigör tornens stegar: vanliga ställningar får inte bilda genvägar eller täcka stegen.
+platforms=platforms.filter(p=>!p.scaffold||p.tower||!ladders.some(l=>p.x<l.x+90&&p.x+p.w>l.x-90));
+// Flytta eventuella lådor som förlorat sin plattform i filtreringen.
+// Placera inte lådor på smala avsatser, framför stegar eller direkt i studsvägen.
+scaffoldCrates=scaffoldCrates.filter(cr=>{
+ const p=platforms.find(p=>p.scaffold&&!p.tower&&cr.x>=p.x&&cr.x+cr.w<=p.x+p.w&&Math.abs(cr.y+cr.h-p.y)<2);
+ return !!p&&p.w>=108&&!ladders.some(l=>cr.x<l.x+l.w+38&&cr.x+cr.w>l.x-38)&&!springs.some(sp=>Math.abs(cr.x-sp.x)<230);
+});
+
+// Städad bandesign: ingen dubbel plattform på samma yta och inga lådor utan stöd.
+platforms.sort((a,b)=>a.x-b.x||a.y-b.y);
+platforms=platforms.filter((p,i,all)=>!p.scaffold||!all.slice(0,i).some(q=>q.scaffold&&Math.abs(q.y-p.y)<21&&Math.min(q.x+q.w,p.x+p.w)-Math.max(q.x,p.x)>Math.min(p.w,q.w)*.55));
+scaffoldCrates=scaffoldCrates.filter(cr=>platforms.some(p=>p.scaffold&&cr.x>=p.x&&cr.x+cr.w<=p.x+p.w&&Math.abs(cr.y+cr.h-p.y)<3));
+// Rullband bara på avsats vid ett riktigt krankroksgap.
+// Ingen slumpmässig placering på vanliga ställningar eller marken.
+conveyors=[];
+for(const hook of hooks.filter(h=>h.challenge)){
+ const gap=pitStarts.find((x,i)=>i%2===1&&Math.abs(hook.x-(x+165))<20);
+ if(gap===undefined)continue;
+ const takeoff=platforms.find(p=>p.scaffold&&p.crane&&Math.abs(p.x-(gap-132))<3);
+ const landing=platforms.find(p=>p.scaffold&&p.crane&&Math.abs(p.x-(gap+365))<3);
+ if(takeoff)conveyors.push({x:takeoff.x+8,y:takeoff.y-10,w:takeoff.w-16,h:10,dir:1,raised:true});
+ if(landing)conveyors.push({x:landing.x+8,y:landing.y-10,w:landing.w-16,h:10,dir:1,raised:true});
+}
+// Billningsbara golv med små, slumpmässiga skatter.
+digSpots=[];for(let x=360+level%3*80;x<worldW-350;x+=1050){const ground=platforms.find(p=>!p.scaffold&&x>p.x+80&&x<p.x+p.w-100);if(ground&&!ladders.some(l=>Math.abs(l.x-x)<110))digSpots.push({x,y:GROUND-12,hits:0,opened:false,treasure:(level+x)%4===0?'gold':'coin'});}
+// Pendlande järnbalkar från bana 7, placerade i fria korridorer.
+steelBeams=[];if(level>=6)for(let x=1150+(level%4)*130;x<worldW-500;x+=1700){if(platforms.some(p=>!p.scaffold&&x>p.x+90&&x<p.x+p.w-90)&&!ladders.some(l=>Math.abs(l.x-x)<170)&&!hooks.some(h=>Math.abs(h.x-x)<280)&&!movingPlatforms.some(m=>Math.abs(m.x-x)<170)&&!springs.some(sp=>Math.abs(sp.x-x)<180))steelBeams.push({x,y:105,len:205,phase:x*.003});}
+// Tunnelportaler ger tydliga, spelbara avsnitt utan att blockera passagen.
+tunnelDoors=[];if(level===18||level>=23&&level%4===3)for(let x=950;x<worldW-450;x+=1450){if(platforms.some(p=>!p.scaffold&&x>p.x+80&&x<p.x+p.w-180))tunnelDoors.push({x,w:205});}
+// Extra tunnelöppningar på mellanplattformar, utan att täcka själva gångytan.
+if(level>=4){for(let i=0;i<platforms.length;i++){const pp=platforms[i];if(pp.scaffold&&pp.w>=135&&i%11===3&&!ladders.some(l=>Math.abs(l.x-pp.x)<95))tunnelDoors.push({x:pp.x+22,w:92,y:pp.y,deck:true});}}
+// VVS-bossens arena har en tydlig tunnel ner under marknivå.
+if(level===5||level===24)tunnelDoors.push({x:worldW-660,w:160,y:GROUND,down:true});
+tunnelDoors=tunnelDoors.filter((d,i,all)=>!all.slice(0,i).some(other=>Math.abs(other.x-d.x)<Math.max(d.w,other.w)+55&&Math.abs((other.y||GROUND)-(d.y||GROUND))<70)&&!hooks.some(h=>Math.abs(h.x-(d.x+d.w/2))<145));
+// Byggkranar: återkommande men tydligt förvarnade materialfall på säker mark.
+if(level>=1){for(let x=1150;x<worldW-500;x+=1450){const ground=platforms.find(p=>!p.scaffold&&p.x<x&&p.x+p.w>x+230);if(ground&&!pitStarts.some((pit,i)=>i%2===1&&Math.abs(pit-x)<400))craneSites.push({x:x+110,phase:Math.floor(x/10)%210,kind:level%2?'brick':'concrete',cooldown:0});}}
+siteProps=[];hazards=[];for(let i=0;i<Math.floor((worldW-200)/310);i++){const x=185+i*310;siteProps.push({x,kind:i%6})}enemies=[];for(let i=0;i<Math.floor((worldW-350)/(level<4?540:level<10?460:Math.max(270,420-Math.floor(level/4)*14)));i++){let x=350+i*(level<4?540:level<10?460:Math.max(270,420-Math.floor(level/4)*14));if(!platforms.some(p=>!p.scaffold&&x+15>=p.x&&x+15<p.x+p.w))x+=120;enemies.push({x,y:GROUND-43,w:34,h:43,vx:(i%2?1:-1)*(.65+Math.min(level,30)*.045),origin:x,alive:true,quote:sayLines[i%sayLines.length],talk:Math.floor(rand(170)),throwTimer:100+Math.floor(rand(170)),kind:i%4})}// Säkerhetszon vid krankrokar: inga kunder, stenblock eller extra gropar vid avstamp/landning.
+enemies=enemies.filter(e=>{
+ const center=e.x+e.w/2;
+ const solid=platforms.some(p=>!p.scaffold&&center>=p.x+30&&center<=p.x+p.w-30);
+ return solid&&!pitStarts.some((px,i)=>i%2===1&&center>px-260&&center<px+345+260);
+});
+items=[];const types=['coin','coin','gold','coin','coffee','coin','helmet','coin','concrete'];for(let i=0;i<10;i++){const x=170+i*Math.floor((worldW-380)/10);items.push({x,y:i%3===0?GROUND-130:GROUND-47,type:types[i%types.length],got:false})}for(let i=0;i<platforms.length;i++){const p=platforms[i];if(p.scaffold&&i%7===1&&p.x>200&&p.x<worldW-450){items.push({x:p.x+p.w/2-13,y:p.y-38,type:i%3===0?"gold":"coin",got:false})}}for(const sp of springs){for(let j=0;j<2;j++)items.push({x:sp.x+35+j*25,y:GROUND-90-j*24,type:'coin',got:false});}for(const cabin of cabins){if(!blueprints[level])items.push({x:cabin.x+43,y:cabin.y-83,type:'blueprint',got:false});if(level%3===0)items.push({x:cabin.x+32,y:cabin.y-35,type:'gold',got:false});if(level%3===0)items.push({x:cabin.x+70,y:cabin.y-35,type:'coin',got:false})}boss=({2:'painter',4:'electrician',5:'plumber',7:'painter',8:'electrician',9:'customer',11:'landscaper',12:'landscaper',13:'safety',14:'foreman',17:'landscaper',19:'foreman',20:'sheetmetal',21:'multicut',24:'plumber',26:'electrician',29:'sheetmetal',32:'landscaper',33:'multicut',36:'foreman',38:'sheetmetal',39:'multicut',35:'ruben'})[level]?{x:worldW-460,y:GROUND-((level===14||level===19)?133:103),w:(level===14||level===19)?100:76,h:(level===14||level===19)?133:103,hp:22+level*4,maxHp:22+level*4,inv:0,vx:(level===14||level===19)?-1.65:-1.2,attack:150,vy:0,groundY:GROUND-103,jumpTimer:95,kind:({2:'painter',4:'electrician',5:'plumber',7:'painter',8:'electrician',9:'customer',11:'landscaper',12:'landscaper',13:'safety',14:'foreman',17:'landscaper',19:'foreman',20:'sheetmetal',21:'multicut',24:'plumber',26:'electrician',29:'sheetmetal',32:'landscaper',33:'multicut',36:'foreman',38:'sheetmetal',39:'multicut',35:'ruben'})[level]}:null;barriers=[];
+// Enstaka tydliga arbetsmoment i stället för en massa hinder: skjut eller ta parkourvägen.
+if(!machineLevel(level)){
+ const candidates=level===0?[1040,2600]:[1100,2950];
+ for(const x of candidates){
+  if(x>worldW-650)continue;
+  if(platforms.some(p=>!p.scaffold&&x>=p.x+35&&x+36<p.x+p.w-35)&&!ladders.some(l=>Math.abs(x-l.x)<180)&&!pitStarts.some((px,i)=>i%2===1&&x>px-240&&x<px+585))
+   barriers.push({x,y:GROUND-165,w:36,h:165,hp:level===0?2:3});
+ }
+}prepareExtras();cleanLevelLayout();bossShots=[];customerShots=[];message('BANA '+(level+1)+': '+names[level]+(boss?' · BOSS: '+({painter:'ARG MÅLARE',electrician:'ARG ELEKTRIKER',plumber:'ARG VVS-ARE',customer:'ARG KUND',landscaper:'ARG ANLÄGGARE',safety:'ARBETSMILJÖINSPEKTÖREN',foreman:'BYGGCHEFEN',sheetmetal:'PLÅTSLAGAREN',multicut:'MIKE MULTICUT',ruben:'RUBENRÅTTKUK'})[boss.kind]:'')+'!')}function overlap(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}function burst(x,y,color,n=12){for(let i=0;i<n;i++)particles.push({x,y,vx:rand(8)-4,vy:-rand(7),t:28,color})}let lastComplaintVoice=-9999;function damage(fromComplaint=false){if(player.inv>0||rageTime>0||megaTime>0||player.power==='concrete')return;life--;window.kickiSfx?.('hurt');levelHits++;rage=Math.min(100,rage+27);player.inv=105;player.vy=-9;if(fromComplaint && frame-lastComplaintVoice>210){lastComplaintVoice=frame;message('NÄ, NU SKA JAG SALTA RÄKNINGARNA!',true)}else message('OJ DÅ! NU FÅR VI TA NYA TAG!',true);if(life<=0){dead=true;wallet=0;upgradeLevels={};nailUnlocked=false;nailAmmo=0;weapon='mail';try{localStorage.removeItem('kicki9_shop');localStorage.removeItem('kicki9_equipment')}catch(e){};finishRecord();message('KICKI HAR FÅTT NOG! TRYCK R FÖR REVANSCH!',true)}}function pickup(it){it.got=true;burst(it.x+12,it.y+12,'#fff18b',9);if(it.type==='coin'){earn(24);score+=100;rage=Math.min(100,rage+6);megaEnergy=Math.min(100,megaEnergy+4);return}if(it.type==='gold'){earn(65);megaEnergy=Math.min(100,megaEnergy+35);score+=350;message('GULDFAKTURA! MEGA +35! BYGG UPP TILL 100!',true);return}player.power=it.type;player.powerT=it.type==='helmet'?950:it.type==='coffee'?270:600;const txt={coffee:'TURBOKAFFE! NU GÅR DET UNDAN!',concrete:'BETONGKICKI! INGEN KAN STOPPA MIG!',mail:'MEJLKANON! KOLLA INKORGEN!',helmet:'BYGGHJÄLM! DUBBELHOPP!' };message(txt[it.type],true);score+=150}function shoot(){if(player.shoot>0||paused||dead||win)return;if(weapon==='nail'&&nailAmmo<=0){weapon='mail';message('SLUT PÅ SPIK! BYTER TILL MEJL. KÖP FLER I BUTIKEN!');return}const nail=weapon==='nail'&&nailUnlocked;player.shoot=megaTime?8:nail?10:24;if(nail){nailAmmo--;saveWeapon()}bullets.push({x:player.x+player.w/2,y:player.y+20,vx:player.face*(megaTime?18:nail?17:10),t:nail?40:70,mega:megaTime>0,nail,damage:nail?2:1});window.kickiSfx?.(nail?'nail':megaTime?'mega':'mail');if(!nail&&Math.random()<.12)message('ARGT MEJL PÅ VÄG!',false)}function next(){const speedBonus=Math.max(0,Math.round(900-(frame-stageStarted)/60*6));score+=500+speedBonus;earn(25+Math.round(speedBonus/100));message('BANBONUS +500 · SNABBHET +'+speedBonus+'!',false);const stars=levelHits===0?3:levelHits<=2?2:1;levelCleared[level]=Math.max(levelCleared[level]||0,stars);saveLevelProgress();message('⭐'.repeat(stars)+' BANA KLAR!');level++;progressUI();if(level>=TOTAL_LEVELS){win=true;victoryX=115;victoryClaimed=false;victoryTick=0;message('🏆 GÅ TILL PRISPALLEN OCH HÄMTA POKALEN MED E!',true)}else{player.x=70;player.y=GROUND-55;player.vx=0;player.vy=0;player.power='';player.powerT=0;load();message('ÄNTLIGEN KLART! MEN VAD ÄR DET NU DÅ?!',true)}}let grapple=null,driving=null;function action(){if(win){if(victoryX>=405&&!victoryClaimed){victoryClaimed=true;score+=5000;goldSuit=true;try{localStorage.setItem('kicki9_goldsuit','yes')}catch(e){};playVictoryTune();finishRecord();message('🏆 POKALEN ÄR DIN! +5000 POÄNG! GULDKOSTYM UPPLÅST!',true);burst(player.x,player.y,'#ffe27a',30)}else if(!victoryClaimed)message('GÅ UPP PÅ PRISPALLEN FÖRST!');return}if(paused||dead)return;
+ if(tunnelRoom){leaveTunnel();return;}
+ const entrance=tunnelDoors.find(d=>Math.abs(player.x+player.w/2-(d.x+d.w/2))<Math.min(85,d.w/2+8)&&Math.abs(player.y+player.h-(d.y||GROUND))<42);
+ if(entrance){enterTunnel(entrance);return;}
+ if(nearDig()){useJackhammer();return;}if(nearOffice()) {openOffice();return;}
+ if(nearCoffee()) {drinkCoffee();return;}
+ if(nearForklift()) {toggleForklift();return;}
+ if(grapple){grapple=null;message('SLÄPPER KRANKROKEN!');return}
+ if(driving){driving=null;message('KICKI KLIVER UR GRÄVMASKINEN!');return}
+ const ex=excavators.find(e=>Math.abs(player.x-e.x)<125&&Math.abs(player.y+player.h-GROUND)<80);
+ if(ex){driving=ex;message('🚜 KÖR MED PILARNA! UPP/NER = SKOPA, E = KLIV UR. KROSSA STENBLOCK!');return}
+ const hook=hooks.find(h=>Math.hypot(player.x+15-(h.x+Math.sin(frame*.025+h.phase)*h.length*.84),player.y+25-(h.y+Math.cos(Math.sin(frame*.025+h.phase)*.98)*h.length))<175);
+ if(hook){grapple=hook;grappleAngle=Math.max(-1.1,Math.min(1.1,Math.asin(Math.max(-1,Math.min(1,(player.x+15-hook.x)/hook.length)))));grappleSpeed=0;message('🪝 SVINGA! HÅLL HÖGER/VÄNSTER, HOPPA FÖR ATT SLÄPPA!');return}
+ const cabin=cabins.find(b=>!b.opened&&player.x+player.w>b.x+10&&player.x<b.x+b.w-8&&Math.abs(player.y+player.h-b.topY)<24&&player.on);
+ if(cabin){cabin.opened=true;earn(100);score+=650;megaEnergy=Math.min(100,megaEnergy+15);burst(cabin.x+40,cabin.y,'#ffe164',25);message('🏚️ HEMLIG BYGGBOD! LITEN BONUS OCH MEGA!');return}
+ message('E: FORDON / KAFFE / VD-KONTOR / KRANKROK / BYGGBOD');}
+// Underjordiska sidobanor: förgrening, ras och grävmaskinist. Belöningar kan hämtas en gång per bana/ingång.
+let tunnelRoom=null;
+const tunnelRewards=new Set();
+function enterTunnel(door){
+ const idx=tunnelDoors.indexOf(door), id=level+':'+idx;
+ tunnelRoom={door,id,returnX:player.x,returnY:player.y,x:65,y:390,vy:0,on:true,face:1,
+  inv:65,enemyX:520,enemyDir:1,enemyAlive:true,seed:(level*7+idx*13)%5,
+  collected:tunnelRewards.has(id),lootX:715,shots:[],cooldown:0,branch:null,
+  collapseX:-110,collapseStarted:false,collapseDelay:0,collapseSpeed:1.4,
+  bossX:730,bossHP:4,bossInv:0,bossDir:-1,bossJump:0,bossShots:[],bossCooldown:90,
+  bonusCollected:false,bonusX:810};
+ grapple=null;driving=null;player.inv=Math.max(player.inv,35);
+ message('🕳️ TUNNEL! VÄLJ VÄG: 1 LUGN / 2 FARLIG · AKTA RASET!');
+}
+function leaveTunnel(){if(!tunnelRoom)return;const r=tunnelRoom;tunnelRoom=null;
+ player.x=r.returnX;player.y=r.returnY;player.vx=0;player.vy=0;player.inv=Math.max(player.inv,85);
+ message('🪜 TILLBAKA PÅ BYGGET!');}
+function tunnelJump(){if(tunnelRoom&&tunnelRoom.on){tunnelRoom.vy=-12.5;tunnelRoom.on=false;}}
+function tunnelShoot(){const r=tunnelRoom;if(!r||r.cooldown>0)return;r.cooldown=19;r.shots.push({x:r.x+15,y:r.y+22,vx:r.face*11,t:75});}
+function updateTunnel(){const r=tunnelRoom;if(!r||paused||dead)return;
+ if(r.inv>0)r.inv--;if(r.cooldown>0)r.cooldown--;if(r.bossInv>0)r.bossInv--;
+ const dx=((keys.ArrowRight||keys.KeyD)?1:0)-((keys.ArrowLeft||keys.KeyA)?1:0);
+ if(!r.branch){if(keys.Digit1||keys.Numpad1){r.branch='safe';message('🪜 SÄKRA GÅNGEN – FÄRRE FAROR!');}
+ else if(keys.Digit2||keys.Numpad2){r.branch='risk';message('💎 RISKFYLLDA GÅNGEN – MINI-BOSS OCH EXTRA FYND!');}
+ else if(r.x>240){r.branch='safe';message('🪜 SÄKRA GÅNGEN!');}}
+ r.x=Math.max(20,Math.min(915,r.x+dx*(r.branch==='risk'?4.2:4.1)));if(dx)r.face=dx;
+ const floor=445,oldFeet=r.y+55;r.vy=Math.min(12,r.vy+.62);r.y+=r.vy;r.on=false;
+ const ledges=[{x:175,y:345,w:165},{x:415,y:295,w:155},{x:665,y:360,w:135}];
+ if(r.vy>=0)for(const ledge of ledges)if(r.x+30>ledge.x&&r.x<ledge.x+ledge.w&&oldFeet<=ledge.y+9&&r.y+55>=ledge.y){r.y=ledge.y-55;r.vy=0;r.on=true;}
+ if(r.y+55>=floor){r.y=floor-55;r.vy=0;r.on=true;}
+ if(keys.KeyX)tunnelShoot();
+ if(r.branch&&r.x>250&&!r.collapseStarted){r.collapseStarted=true;r.collapseDelay=110;message('⚠️ TUNNELN RASAR BAKOM DIG! SPRING!');}
+ if(r.collapseStarted){if(r.collapseDelay>0)r.collapseDelay--;else r.collapseX+=r.collapseSpeed+(r.branch==='risk'?.55:0);
+  if(r.x<r.collapseX+22&&r.inv===0){r.inv=100;damage();r.x=Math.min(900,r.collapseX+65);}}
+ if(r.enemyAlive){r.enemyX+=r.enemyDir*(1.2+r.seed*.16);if(r.enemyX<465||r.enemyX>615)r.enemyDir*=-1;
+  if(Math.abs(r.x-r.enemyX)<34&&r.y+55>floor-50&&r.inv===0){r.inv=100;damage();}}
+ if(r.branch==='risk'&&r.bossHP>0){
+  r.bossCooldown--;r.bossX+=r.bossDir*1.25;if(r.bossX<665||r.bossX>840)r.bossDir*=-1;
+  if(r.bossCooldown<=0){r.bossCooldown=90;r.bossJump=26;r.bossShots.push({x:r.bossX,y:390,vx:(r.x<r.bossX?-3.6:3.6),t:100});}
+  if(r.bossJump>0)r.bossJump--;
+  if(Math.abs(r.x-r.bossX)<42&&r.y+55>floor-95&&r.inv===0){r.inv=100;damage();}
+  for(const bs of r.bossShots){bs.x+=bs.vx;bs.t--;if(Math.abs(r.x+15-bs.x)<22&&Math.abs(r.y+26-bs.y)<38&&r.inv===0){r.inv=100;damage();bs.t=0;}}
+  r.bossShots=r.bossShots.filter(bs=>bs.t>0&&bs.x>0&&bs.x<960);
+ }
+ for(const shot of r.shots){shot.x+=shot.vx;shot.t--;
+  if(r.enemyAlive&&Math.abs(shot.x-r.enemyX)<28&&Math.abs(shot.y-(floor-28))<44){r.enemyAlive=false;shot.t=0;score+=120;}
+  if(r.branch==='risk'&&r.bossHP>0&&r.bossInv===0&&Math.abs(shot.x-r.bossX)<40&&Math.abs(shot.y-(floor-45))<70){r.bossHP--;r.bossInv=15;shot.t=0;if(!r.bossHP){score+=250;message('🚜 GRÄVMASKINISTEN ÄR BESEGRAD!');}}}
+ r.shots=r.shots.filter(sh=>sh.t>0&&sh.x>0&&sh.x<960);
+ if(!r.collected&&Math.abs(r.x+15-r.lootX)<43&&Math.abs(r.y+30-320)<70){r.collected=true;tunnelRewards.add(r.id);score+=150;earn(18+r.seed*4);message('💎 TUNNELFYND! LITEN BONUS!');}
+ if(r.branch==='risk'&&!r.bonusCollected&&r.bossHP<=0&&r.x>780){r.bonusCollected=true;
+  if(!tunnelRewards.has(r.id+':bonus')){tunnelRewards.add(r.id+':bonus');earn(35);score+=200;message('💎 EXTRA FYND! +35 MYNT!');}}
+ if(r.x>885&&r.y+55>=floor-5){leaveTunnel();}
+}
+function drawTunnel(){const r=tunnelRoom;if(!r)return;
+ const grad=g.createLinearGradient(0,0,0,H);grad.addColorStop(0,'#141c29');grad.addColorStop(1,r.branch==='risk'?'#573b30':'#403d32');g.fillStyle=grad;g.fillRect(0,0,W,H);
+ for(let i=0;i<18;i++){rect(i*65,80+(i%3)*19,60,13,'#39404a');rect(i*65,470+(i%2)*11,60,17,'#554638');}
+ for(let i=0;i<5;i++){rect(75+i*195,70,10,375,'#59636b');rect(65+i*195,110,145,9,'#7a6650');}
+ rect(0,445,W,95,'#6b5741');rect(0,445,W,13,'#c0a16b');
+ for(const ledge of [{x:175,y:345,w:165},{x:415,y:295,w:155},{x:665,y:360,w:135}]){rect(ledge.x,ledge.y,ledge.w,15,'#9da9a9');rect(ledge.x,ledge.y,ledge.w,5,'#e4b64d');}
+ for(let i=0;i<5;i++){const x=110+i*195;g.fillStyle='#ffe0a2';g.beginPath();g.arc(x,120,11,0,7);g.fill();}
+ rect(18,350,66,95,'#2d3e46');text('IN',51,395,16,'#ffdf85','center');
+ rect(862,346,70,99,'#36544d');rect(871,355,52,8,'#b2d4bb');text('UT',897,402,20,'#fff3ae','center');
+ if(!r.branch){rect(215,205,330,90,'#17232be8');text('1  LUGN GÅNG',380,238,19,'#a8f0c0','center');text('2  FARLIG GÅNG + MINI-BOSS',380,272,17,'#ffce80','center');}
+ if(!r.collected){rect(r.lootX-14,306,29,29,'#f5c44b');text('◆',r.lootX,329,25,'#fff3bc','center');}
+ if(r.enemyAlive){rect(r.enemyX,401,32,44,'#8e6572');rect(r.enemyX+4,390,24,18,'#e5b0a3');rect(r.enemyX+7,397,5,5,'#1a2330');rect(r.enemyX+21,397,5,5,'#1a2330');}
+ if(r.branch==='risk'&&r.bossHP>0){const bx=r.bossX,by=r.bossJump>0?392-Math.sin(r.bossJump/26*Math.PI)*46:392;
+  rect(bx-22,by,72,48,'#c49a38');rect(bx+35,by-25,12,43,'#e5ba49');rect(bx+35,by-33,38,12,'#e5ba49');rect(bx-25,by+38,85,12,'#343d45');
+  rect(bx-9,by-18,25,20,'#e4b69b');rect(bx-12,by-23,31,9,'#e9bd3b');text('🚜 GRÄVMASKINIST '+r.bossHP+' HP',bx+15,by-40,13,'#ffdb7e','center');}
+ for(const bs of r.bossShots)rect(bs.x,bs.y,18,18,'#dc8e43');
+ if(r.collapseStarted){const cx=Math.max(0,r.collapseX);rect(0,68,cx,377,'#4e3b34');for(let i=0;i<cx;i+=32){rect(i,80+(i%4)*30,27,12,'#866b50');}rect(cx-12,75,14,370,'#a46b4c');text('⚠ RAS!',Math.max(75,cx+45),170,18,'#ff9e75','center');}
+ for(const shot of r.shots){rect(shot.x,shot.y,19,10,'#f3e8d3');rect(shot.x+3,shot.y+3,13,2,'#6c7b90');}
+ if(r.inv%8<5){rect(r.x+5,r.y+8,23,46,'#24384a');rect(r.x+4,r.y+3,25,13,'#8b8065');rect(r.x+5,r.y+21,22,24,'#b44b2e');rect(r.x+10,r.y+13,13,7,'#e1b491');}
+ rect(0,0,W,66,'#101722');text('🕳️ TUNNEL · BANA '+(level+1)+' · '+(r.branch==='risk'?'FARLIGA VÄGEN':r.branch==='safe'?'LUGNA VÄGEN':'VÄLJ VÄG'),20,27,19,'#ffe3a2');
+ text('← → GÅ · SPACE HOPPA · X SKJUT · E GÅ TILLBAKA · 1 / 2 VÄLJ',20,53,13,'#d5e4e8');
+ text('UTGÅNG →',860,328,14,'#ffe5a3','center');
+ if(paused||dead){rect(0,0,W,H,'#101523bb');text(dead?'SPELET SLUT':'PAUS',W/2,H/2,38,'#fff','center');}
+}
+function update(){frame++;if(tunnelRoom){updateTunnel();return;}if(win){victoryTick++;if(keys.ArrowRight||keys.KeyD)victoryX=Math.min(530,victoryX+4.5);if(keys.ArrowLeft||keys.KeyA)victoryX=Math.max(55,victoryX-4.5);return}if(paused||dead)return;updateExtras();for(const b of steelBeams){const a=Math.sin(frame*.022+b.phase)*.88;b.endX=b.x+Math.sin(a)*b.len;b.endY=b.y+Math.cos(a)*b.len;if(Math.abs(player.x+15-b.endX)<66&&Math.abs(player.y+25-b.endY)<27)damage();}if(checkpoint&&!checkpoint.active&&player.x>=checkpoint.x){checkpoint.active=true;message('🏁 CHECKPOINT! HÄR FÅR DU EN NY CHANS!');score+=250;}
+if(frame%140===0){
+ const nearWall=barriers.find(w=>w.hp>0&&Math.abs(w.x-player.x)<130);
+ const nearSpring=springs.find(sp=>Math.abs(sp.x-player.x)<95);
+ const nearBelt=conveyors.find(b=>Math.abs(b.x-player.x)<100);
+ const nearLadder=ladders.find(l=>Math.abs(l.x-player.x)<55&&player.y+player.h>l.y+25);
+ const nearCrane=hooks.find(h=>Math.abs(h.x-player.x)<260);
+ if(nearWall)message('📦 STOPP! SKJUT SÖNDER HINDRET MED X / SKJUT!');
+ else if(nearSpring)message('🟨 STUDSA HÄR FÖR ATT NÅ BYGGSTÄLLNINGEN!');
+ else if(nearBelt)message('↔️ TRANSPORTBANDET FLYTTAR DIG!');
+ else if(nearLadder)message('🪜 HÅLL UPP / KLÄTTRA FÖR ATT NÅ BYGGBODEN!');
+ else if(nearCrane)message('🪝 GREPPA KROKEN MED E / ANVÄND OCH SVINGA ÖVER HÅLET!');
+}
+// Kranlasten får en lång synlig varning innan den faller. En last i taget per kran.
+for(const crane of craneSites){if(crane.cooldown>0)crane.cooldown--;if(crane.cooldown===0&&Math.abs(player.x-crane.x)<550){fallingLoads.push({x:crane.x,y:-90,targetY:GROUND-49,w:54,h:49,phase:'warning',timer:78,kind:crane.kind});crane.cooldown=320+Math.floor(rand(100));}}
+for(const load of fallingLoads){if(load.phase==='warning'){if(--load.timer<=0){load.phase='falling';load.y=-75;load.speed=0;}}else if(load.phase==='falling'){load.speed=Math.min(12,(load.speed||0)+.43);load.y+=load.speed;if(overlap(player,{x:load.x-5,y:load.y,w:load.w+10,h:load.h})){damage();load.phase='impact';load.timer=32;burst(load.x+25,load.y+35,'#c9a47a',16);}if(load.y>=load.targetY){load.y=load.targetY;load.phase='impact';load.timer=38;burst(load.x+25,GROUND-12,'#c9a47a',20);}}else load.timer--;}
+fallingLoads=fallingLoads.filter(load=>load.phase!=='impact'||load.timer>0);
+if(keys.KeyX)shoot();if(keys.KeyZ&&megaEnergy>=100&&megaTime<=0){megaEnergy=0;megaTime=500;message('NU KÖR VI! MEGA-KICKI!',true);burst(player.x,player.y,'#ffcc33',35)}if(keys.KeyF&&rage>=100&&rageTime<=0){rage=0;rageTime=370;message('SUPER-RASERI!!! NU FÅR DET VARA NOG!',true)}if(player.shoot>0)player.shoot--;if(player.inv>0)player.inv--;if(player.powerT>0){player.powerT--;if(player.powerT===0)player.power=''}if(rageTime>0)rageTime--;if(megaTime>0){megaTime--;if(megaTime===0)message('JAHA... DÅ VAR DET DAGS ATT JOBBA IGEN. FAN OCKSÅ!',true)}if(toastT>0)toastT--;const speed=(megaTime?9.3:rageTime?8.5:player.power==='coffee'?5.8:3.28)*(1+.12*levelOf('boots'))*(level===17?.9:1);player.vx=(keys.ArrowLeft||keys.KeyA?-speed:0)+(keys.ArrowRight||keys.KeyD?speed:0);if(player.swingFrames>0){player.swingFrames--;player.vx+=player.swingLaunch*Math.min(1,player.swingFrames/12);}if(player.springBoost>0){player.springBoost--;player.vx+=(keys.ArrowLeft||keys.KeyA)?-2.2:6.2;}if(!player.on&&stormLevel(level)&&level!==17)player.vx+=.32;if(player.vx)player.face=Math.sign(player.vx);if(driving){player.vx*=1.5;driving.x=Math.max(0,Math.min(worldW-180,driving.x+player.vx));driving.arm=Math.max(-1,Math.min(1,(driving.arm||0)+(keys.ArrowUp||keys.KeyW?-.035:0)+(keys.ArrowDown||keys.KeyS?.035:0)));player.x=driving.x+44;player.y=driving.y+2;player.vy=0;player.on=true;player.jumps=0;
+// Skopan slår sönder stenblock framför maskinen och avslöjar en bonus.
+for(const rock of rockBlocks){if(rock.broken)continue;
+ const bucket={x:driving.x+142,y:driving.y+44+(driving.arm||0)*34,w:83,h:58};
+ if(overlap(bucket,rock)){
+  rock.broken=true;earn(110);score+=400;
+  for(let n=0;n<3;n++)items.push({x:rock.x+n*12,y:rock.y-50-(n%2)*25,type:n===2?'gold':'coin',got:false});
+  burst(rock.x+35,rock.y+30,'#b4a59a',24);
+  message('🚜 STENBLOCK KROSSAT! HEMLIG COINBONUS!',true);
+ }}
+for(const cr of scaffoldCrates){if(!cr.broken&&overlap({x:driving.x+90,y:driving.y+10+(driving.arm||0)*35,w:90,h:75},cr)){cr.hp=0;cr.broken=true;earn(80);burst(cr.x,cr.y,'#d7a257')}}}
+if(grapple){const h=grapple;grappleSpeed+=(keys.ArrowRight||keys.KeyD?.014:0)-(keys.ArrowLeft||keys.KeyA?.014:0)-Math.sin(grappleAngle)*.009;grappleSpeed*=.994;grappleSpeed=Math.max(-.065,Math.min(.065,grappleSpeed));grappleAngle=Math.max(-1.25,Math.min(1.25,grappleAngle+grappleSpeed));player.x=h.x+Math.sin(grappleAngle)*h.length-player.w/2;player.y=h.y+Math.cos(grappleAngle)*h.length-player.h/2;player.vy=0;player.on=false;}
+const oldX=player.x;wallTouch=0;player.x=Math.max(0,Math.min(worldW-player.w,player.x+(grapple?0:player.vx)));for(const wall of barriers){if(wall.hp>0&&player.x<wall.x+wall.w&&player.x+player.w>wall.x&&player.y+player.h>wall.y&&player.y<wall.y+wall.h){player.x=oldX;wallTouch=player.vx>0?1:-1;break}}for(const mp of movingPlatforms){const prev=mp.x;mp.x=mp.baseX+Math.sin(frame*.025+mp.phase)*mp.range;mp.dx=mp.x-prev;}
+for(const p of platforms){if(p.fragile&&p.gone>0){p.gone--;if(p.gone===0)p.timer=0;}else if(p.fragile&&p.timer>0){p.timer--;if(p.timer===0){p.gone=220;burst(p.x+p.w/2,p.y,'#d9a95b',22);message('KRASCH! STÄLLNINGEN RASADE!',true);}}}
+// Maskiner är interaktiva fordon, inte extra hoppplattformar.
+if(!driving){for(const ex of excavators){const roof={x:ex.x+25,y:ex.y+2,w:112,h:38};if(overlap(player,roof)&&player.vy>=0&&player.y+player.h<ex.y+48){player.x=player.x<ex.x+ex.w/2?ex.x-player.w-3:ex.x+ex.w+3;}}}
+let oldBottom=player.y+player.h;if(!grapple){player.vy=Math.min(14,player.vy+.58);player.y+=player.vy;}player.on=false;for(const rock of rockBlocks){if(rock.broken||driving)continue;
+ if(overlap(player,rock)){player.x=oldX;wallTouch=player.vx>0?1:-1;}
+}
+for(const crate of scaffoldCrates){
+ if(crate.broken)continue; if(overlap(player,crate)){
+  if(player.vy>=0&&oldBottom<=crate.y+8){player.y=crate.y-player.h;player.vy=0;player.on=true;player.jumps=0;}
+  else if(player.y+player.h>crate.y+8){player.x=oldX;wallTouch=player.vx>0?1:-1;}
+ }
+}
+for(const p of [...platforms,...movingPlatforms,...lifts]){if(p.gone>0)continue;if(player.vy>=0&&player.x+player.w>p.x+4&&player.x<p.x+p.w-4&&oldBottom<=p.y+9&&player.y+player.h>=p.y){player.y=p.y-player.h;player.vy=0;player.on=true;player.jumps=0;if(p.fragile&&p.timer===0){p.timer=105;message("⚠ STÄLLNINGEN KNARRAR! FLYTTA DIG!",true);}if(p.baseX!==undefined)player.x+=p.dx;}}
+// Stora kranar med blinkande varningsljus och skuggor på marken.
+for(const crane of craneSites){const x=crane.x;rect(x-190,80,13,GROUND-80,'#ba8c35');for(let y=96;y<GROUND-20;y+=31){g.strokeStyle='#e8c55c';g.lineWidth=3;g.beginPath();g.moveTo(x-188,y);g.lineTo(x-177,y+26);g.moveTo(x-177,y);g.lineTo(x-188,y+26);g.stroke()}rect(x-240,77,380,13,'#e3b344');rect(x-230,82,360,3,'#fff0a0');rect(x-190,62,24,18,frame%35<18?'#ffcf47':'#9b6d27');rect(x+22,90,3,65,'#49505b');rect(x+12,154,23,12,'#777e82');}
+for(const load of fallingLoads){const x=load.x;g.save();g.fillStyle=load.phase==='warning'?'#ff3b3299':'#261d1966';g.beginPath();g.ellipse(x+load.w/2,GROUND-5,load.phase==='warning'?40:33,9,0,0,Math.PI*2);g.fill();g.restore();if(load.phase==='warning'){const blink=frame%20<10;text('⚠ FALLANDE LAST!',x+27,GROUND-73,14,blink?'#ffed71':'#ff6a48','center');g.strokeStyle=blink?'#ffdb3b':'#f34b3b';g.lineWidth=4;g.strokeRect(x-7,GROUND-61,load.w+14,60);}else{rect(x,load.y,load.w,load.h,load.kind==='brick'?'#a64c36':'#999d9f');rect(x+4,load.y+5,load.w-8,8,load.kind==='brick'?'#d98662':'#cfd5d5');if(load.kind==='brick'){for(let i=0;i<3;i++){rect(x+3,load.y+17+i*11,load.w-6,2,'#61382d');rect(x+15+(i%2)*17,load.y+17+i*11,2,10,'#61382d')}}else text('BETONG',x+27,load.y+32,10,'#343b3c','center');}}
+for(const ladder of ladders){if(overlap(player,ladder)&&(keys.ArrowUp||keys.KeyW)){player.y-=5.8;player.vy=-2;player.jumps=0;player.on=true;}}
+// Transportband: stående på marken lyfts Kicki upp till bandytan och förs med bandet.
+for(const belt of conveyors){
+ const feet=player.y+player.h;
+ const touching=player.x+player.w>belt.x+4&&player.x<belt.x+belt.w-4;
+ // Marken kan redan ha satt vy=0. Bandet ska ändå gripa tag i Kicki.
+ if(touching&&feet>=belt.y-7&&feet<=belt.y+22&&player.vy>=0){
+  player.y=belt.y-player.h;player.vy=0;player.on=true;player.jumps=0;
+  player.x=Math.max(0,Math.min(worldW-player.w,player.x+belt.dir*(belt.raised?2.1:3.1)));
+ }
+}
+for(const sp of springs){if(player.vy>=0&&player.x+player.w>sp.x+5&&player.x<sp.x+sp.w-5&&player.y+player.h>=sp.y-5&&player.y+player.h<=GROUND+5){player.y=sp.y-player.h;player.vy=-15.3;player.vx=4.2;player.on=false;player.jumps=0;player.springBoost=13;burst(sp.x+20,sp.y,'#f8d34b',12);message('BOING! STYR MOT DEN HÖGA STÄLLNINGEN!')}}if(player.y>H+60){player.inv=0;damage();if(dead)return;const safe=platforms.filter(p=>!p.scaffold&&p.w>100).sort((a,b)=>Math.abs(a.x-(checkpoint&&checkpoint.active?checkpoint.x:player.x-200))-Math.abs(b.x-(checkpoint&&checkpoint.active?checkpoint.x:player.x-200)))[0];player.x=checkpoint&&checkpoint.active?checkpoint.x:safe?Math.max(safe.x+25,65):65;player.y=GROUND-180;player.vy=0;player.inv=130}for(const it of items){if(!it.got&&overlap(player,{x:it.x,y:it.y,w:26,h:26})){if(it.type==='blueprint'){it.got=true;blueprints[level]=true;try{localStorage.setItem(PLAN_KEY,JSON.stringify(blueprints))}catch(e){};score+=750;earn(65);message('📜 HEMLIG RITNING! +750 POÄNG!');progressUI()}else pickup(it)}}for(const e of enemies){if(!e.alive)continue;e.x+=e.vx;if(Math.abs(e.x-e.origin)>60)e.vx*=-1;if(--e.talk<=0){e.talk=480+rand(420);if(frame-lastMobQuipFrame>780&&Math.abs(e.x-player.x)<260&&Math.random()<.16){lastMobQuipFrame=frame;message(e.quote,false)}}if(--e.throwTimer<=0){e.throwTimer=Math.max(105,235-level*4)+Math.floor(rand(95));
+if(Math.abs(e.x-player.x)<480&&Math.abs(e.y-player.y)<160){
+const dir=player.x<e.x?-1:1;
+customerShots.push({x:e.x+16,y:e.y+9,vx:dir*(2.5+level*.45),vy:-4.7-level*.18,t:160,spin:0,type:Math.random()<.5?'KLAGOMÅL':'ÄTA?!'});
+if(Math.random()<.07&&frame-lastMobQuipFrame>480){lastMobQuipFrame=frame;message('KUNDEN KASTAR ETT KLAGOMÅL!')};window.kickiSfx?.('enemy');}}
+if(overlap(player,e)){if(rageTime||megaTime||player.power==='concrete'||(player.vy>2&&oldBottom<=e.y+15)){e.alive=false;score+=200;comboBonus();rage=Math.min(100,rage+15);megaEnergy=Math.min(100,megaEnergy+12);burst(e.x+15,e.y+18,'#ffbb48');player.vy=-8;if(Math.random()<.12&&frame-lastMobQuipFrame>800){lastMobQuipFrame=frame;message('TA DET MED FAKTURAAVDELNINGEN!',false)}}else damage()}}if(boss){
+ const furious=boss.hp<=boss.maxHp*.30;
+ if(!boss.warning && boss.attack<=62){
+   boss.warning={ticks:60,kind:boss.kind,targetX:player.x+player.w/2};
+   window.kickiSfx?.(({plumber:'warnWater',multicut:'warnWind',sheetmetal:'warnMetal',ruben:'warnJump',landscaper:'warnEngine'})[boss.kind]||'boss');
+ }
+ if(boss.warning){
+   boss.warning.ticks--;
+   if(boss.warning.ticks<=0){
+     const dir=player.x<boss.x?-1:1;
+     const kind=boss.kind;
+     const t=kind==='plumber'?'VATTEN':kind==='multicut'?'VIRVEL':kind==='sheetmetal'?'PLÅT':kind==='ruben'?'SMÄLL':kind==='landscaper'?'GRUS':'ORDER';
+     const shots=(kind==='multicut'?3:kind==='plumber'?3:kind==='sheetmetal'?1:furious?3:2);
+     if(kind==='ruben'){
+       boss.vy=furious?-18:-16;
+       boss.jumpTimer=furious?60:85;
+       boss.vx=dir*(furious?5.1:3.7);
+       burst(boss.x+boss.w/2,boss.y+boss.h,'#ffb14a',12);
+     }else if(kind==='plumber'){
+       for(let i=0;i<shots;i++)bossShots.push({x:boss.x+boss.w/2+i*22,y:boss.y+boss.h-15,vx:(boss.warning.targetX-boss.x)/75+(i-1)*1.1,vy:-12-i*.8,gravity:.29,t:125,type:t,w:28,h:26});
+     }else if(kind==='sheetmetal'){
+       bossShots.push({x:boss.x+boss.w/2,y:boss.y+25,vx:dir*(furious?6:4.8),vy:-4,gravity:.07,t:130,type:t,w:90,h:35});
+     }else if(kind==='multicut'){
+       for(let i=0;i<3;i++)bossShots.push({x:boss.x+boss.w/2,y:boss.y+15+i*25,vx:dir*(3.6+i*.5+(furious?.8:0)),vy:(i-1)*1.15,t:150,type:t,w:39,h:37});
+     }else{
+       const phase=(boss.pattern=(boss.pattern||0)+1)%3;
+       for(let i=0;i<shots;i++)bossShots.push({x:boss.x+boss.w/2,y:boss.y+25,vx:dir*(3.8+i*.55),vy:phase===0?-7-i:phase===1?(i-1)*2:0,gravity:phase===0?.19:0,t:130,type:t,w:42,h:25});
+     }
+     window.kickiSfx?.(kind==='plumber'?'water':kind==='multicut'?'wind':kind==='sheetmetal'?'metal':kind==='ruben'?'stomp':kind==='landscaper'?'engine':'boss');
+     boss.warning=null;
+     boss.attack=(furious?125:175)+Math.floor(rand(furious?35:55));
+   }
+ }else if(boss.attack>0)boss.attack--;
+if(boss.kind==='ruben'){
+ boss.groundY=GROUND-boss.h;
+ if(boss.jumpTimer>0)boss.jumpTimer--;if(boss.jumpTimer<=0)boss.jumpTimer=90;
+ boss.vy=Math.min(15,(boss.vy||0)+.48);boss.y=Math.min(boss.groundY,boss.y+boss.vy);
+ if(boss.y>=boss.groundY)boss.vy=0;
+ boss.vx=Math.sign(player.x-boss.x)*Math.min(4.2,2.7+level*.025);
+ if(boss.y>=boss.groundY-1&&Math.abs(player.x-boss.x)<100&&frame%80===0){burst(boss.x+35,GROUND-8,'#ffb14a',14);if(Math.abs(player.y+player.h-GROUND)<30)damage();}
+ }else if(boss.kind==='plumber'&&level===24){ // VVS-bossen rör sig ovanför tunnelmynningen
+  boss.y=GROUND-boss.h-35+Math.sin(frame*.035)*20;
+ }
+ boss.x+=boss.vx;if(boss.x<worldW-600||boss.x>worldW-220)boss.vx*=-1;if(boss.inv>0)boss.inv--;if(overlap(player,boss)){if(rageTime||megaTime||player.power==='concrete'){if(!boss.inv){boss.hp-=megaTime?4:2;boss.inv=35;burst(boss.x+30,boss.y+20,'#ff763d');player.vy=-9}}else if(player.vy>2&&oldBottom<=boss.y+20){boss.hp--;boss.inv=35;player.vy=-11;message('ANMÄRKNING: FÖR MYCKET ATTITYD!')}else damage()}if(boss.hp<=0){window.kickiSfx?.('win');lastBossKind=boss.kind;cinematicUntil=frame+175;score+=(level===14||level===19)?8000:1500+level*350;boss=null;bossShots=[];message(level===19?'SLUTBOSSEN BETALADE! DET ÄR ETT MIRAKEL!':'BESIKTNINGEN GODKÄND! OTROLIGT!',true)}}for(const h of hazards){if(overlap(player,h))damage()}for(const q of customerShots){q.x+=q.vx;q.y+=q.vy;q.vy+=.12;q.spin+=.15;q.t--;
+if(q.y>GROUND-15)q.t=0;
+if(overlap({x:q.x,y:q.y,w:24,h:22},player)){q.t=0;damage(true);}}
+customerShots=customerShots.filter(q=>q.t>0);
+for(const q of bossShots){q.x+=q.vx;q.y+=(q.vy||0);if(q.gravity)q.vy+=q.gravity;q.t--;if(q.y>GROUND+60)q.t=0;if(overlap({x:q.x,y:q.y,w:q.w||54,h:q.h||28},player)){q.t=0;damage();if(q.type==='VATTEN')player.vx*=.3;if(q.type==='VIRVEL'){player.x=Math.max(0,Math.min(worldW-player.w,player.x+q.vx*13));player.vy=-7;}if(q.type==='BLIXT')player.inv=Math.max(player.inv,125)}}bossShots=bossShots.filter(q=>q.t>0);for(const b of bullets){b.x+=b.vx;b.t--;for(const crate of scaffoldCrates){if(!crate.broken&&overlap({x:b.x,y:b.y,w:25,h:15},crate)){crate.hp-=b.mega?4:b.nail?2:1;b.t=0;burst(crate.x,crate.y,'#d6a55c',8);if(crate.hp<=0){crate.broken=true;earn(120);score+=150;items.push({x:crate.x,y:crate.y-30,type:'coin',got:false});message('📦 LÅDAN SPRACK! +COINS!')}break}}
+if(b.t<=0)continue;for(const wall of barriers){if(wall.hp>0&&overlap({x:b.x,y:b.y,w:b.mega?60:23,h:b.mega?35:15},wall)){b.t=0;wall.hp-=b.mega?4:b.nail?2:1;burst(wall.x,wall.y,'#dbac66',7);if(wall.hp<=0){earn(120);score+=150;message('TRÄBARRIÄR KROSSAD! +120 COINS')}else message('FORTSÄTT SKJUTA! TRÄET SPRICKER!');break}}if(b.t<=0)continue;for(const e of enemies){if(e.alive&&overlap({x:b.x,y:b.y,w:b.mega?60:20,h:b.mega?35:13},e)){if(b.nail||b.mega||Math.random()<.65){e.alive=false;b.t=0;score+=175;comboBonus();rage=Math.min(100,rage+10);megaEnergy=Math.min(100,megaEnergy+10);burst(e.x,e.y,'#ffe17d')}else{e.vx=player.x<e.x?-Math.abs(e.vx)*1.5:Math.abs(e.vx)*1.5;message('KUNDEN BLEV ARG AV MEJLET!')}b.t=0}}if(boss&&overlap({x:b.x,y:b.y,w:20,h:13},boss)&&!boss.inv){boss.hp-=b.mega?3:b.nail?2:1;boss.inv=20;b.t=0;burst(boss.x,boss.y,'#ff9d42')}}bullets=bullets.filter(b=>b.t>0);for(const p of particles){p.x+=p.vx;p.y+=p.vy;p.vy+=.3;p.t--}particles=particles.filter(p=>p.t>0);if(player.x>exitX&&(!boss||boss.hp<=0))next();cam=Math.max(0,Math.min(worldW-W,player.x-240))}function jump(){if(paused||dead||win)return;if(grapple){const h=grapple;grapple=null;
+// Krankroksgap: utsläppshastigheten ska följa både vinkeln och svingriktningen.
+// Tidigare gav låg vinkelhastighet nästan ingen fart, så Kicki föll rakt ner.
+const direction=(keys.ArrowLeft||keys.KeyA)?-1:(keys.ArrowRight||keys.KeyD)?1:(grappleAngle>=0?1:-1);
+const outward=Math.abs(Math.sin(grappleAngle));
+player.vy=-10.5-Math.min(2,Math.abs(grappleSpeed)*20);
+player.swingLaunch=direction*(11.5+2.5*outward);
+player.swingFrames=34;player.jumps=1;
+message('KICKI FLYGER FRÅN KRANEN! STYR MOT LANDNINGEN!');return}if(driving){driving=null;player.vy=-12;player.y-=10;message('HOPPAR UR GRÄVMASKINEN!');return}if(wallTouch&&!player.on){player.vy=-12;player.vx=-wallTouch*8;player.jumps=1;message('🧗 VÄGGSPARK!');return}const max=player.power==='helmet'?2:1;if(player.on||player.jumps<max){player.vy=-12.5-1.2*levelOf('jump');player.on=false;player.jumps++;burst(player.x+15,player.y+50,'#eee',4)}}function rect(x,y,w,h,col){g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),w,h)}function text(t,x,y,size=18,color='#fff',align='left'){g.font=`900 ${size}px system-ui`;g.textAlign=align;g.lineWidth=4;g.strokeStyle='#17233a';g.strokeText(t,x,y);g.fillStyle=color;g.fillText(t,x,y)}function playVictoryTune(){try{const ac=new(window.AudioContext||window.webkitAudioContext)();[523,659,784,1046].forEach((hz,i)=>{const o=ac.createOscillator(),gain=ac.createGain();o.type='triangle';o.frequency.value=hz;gain.gain.setValueAtTime(.0001,ac.currentTime+i*.19);gain.gain.exponentialRampToValueAtTime(.11,ac.currentTime+i*.19+.025);gain.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+i*.19+.23);o.connect(gain).connect(ac.destination);o.start(ac.currentTime+i*.19);o.stop(ac.currentTime+i*.19+.24)});setTimeout(()=>ac.close().catch(()=>{}),1600)}catch(e){}}function renderLevelMap(){const m=document.getElementById('levelMap');if(!m)return;m.replaceChildren();for(let i=0;i<TOTAL_LEVELS;i++){const b=document.createElement('button');b.type='button';b.textContent=(i+1)+' '+(levelCleared[i]?'⭐'.repeat(levelCleared[i]):i===level?'▶':'🔒');b.title=names[i];b.disabled=!(levelCleared[i]||i===level||levelCleared[i-1]);b.onclick=()=>{if(!confirm('Spela bana '+(i+1)+'? Pågående omgång startas om.'))return;level=i;score=0;life=hearts();dead=false;win=false;reset(false);document.getElementById('mapPanel').hidden=true};m.appendChild(b)}}function drawVictory(){
+ const t=victoryTick;
+ const sky=g.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#18264e');sky.addColorStop(.7,'#6a3f7b');sky.addColorStop(1,'#eaa96b');g.fillStyle=sky;g.fillRect(0,0,W,H);
+ // Strålkastare, byggkranar och en festlig byggarbetsplats.
+ for(let i=0;i<4;i++){const bx=90+i*265;g.fillStyle='#23304b';g.fillRect(bx,190,10,265);g.fillRect(bx-50,190,180,9);g.fillStyle='#ffe3a0';g.globalAlpha=.09;g.beginPath();g.moveTo(bx,205);g.lineTo(bx-100+Math.sin(t*.015+i)*60,490);g.lineTo(bx+150+Math.sin(t*.015+i)*60,490);g.fill();g.globalAlpha=1}
+ for(let i=0;i<9;i++){let x=45+i*120;g.fillStyle=i%2?'#25364d':'#324358';g.fillRect(x,300-(i%4)*34,100,200);for(let j=0;j<3;j++)for(let k=0;k<3;k++){g.fillStyle='#ffda80';g.fillRect(x+13+j*27,320-(i%4)*34+k*38,11,16)}}
+ g.fillStyle='#354a54';g.fillRect(0,465,W,75);g.fillStyle='#ffd05e';g.fillRect(0,463,W,7);
+ // Prispallen med trappsteg upp från vänster.
+ const steps=[{x:210,y:416,w:105,h:49},{x:315,y:367,w:105,h:98},{x:420,y:309,w:200,h:156}];
+ for(const p of steps){g.fillStyle='#b88b42';g.fillRect(p.x,p.y,p.w,p.h);g.fillStyle='#ffe4a1';g.fillRect(p.x,p.y,p.w,13);g.strokeStyle='#775128';g.lineWidth=3;g.strokeRect(p.x,p.y,p.w,p.h)}
+ text('3',262,447,25,'#fff','center');text('2',367,421,27,'#fff','center');text('1',520,386,48,'#fff5ad','center');
+ // Stor guldbuckla, som försvinner när Kicki hämtat den.
+ if(!victoryClaimed){g.save();g.translate(520,246+Math.sin(t*.045)*4);g.fillStyle='#f9cf43';g.beginPath();g.moveTo(-32,-54);g.lineTo(32,-54);g.lineTo(22,-8);g.quadraticCurveTo(0,15,-22,-8);g.closePath();g.fill();g.strokeStyle='#fff4b1';g.lineWidth=5;g.stroke();g.strokeStyle='#ffd65c';g.lineWidth=9;g.beginPath();g.arc(-32,-33,23,.55,4.8);g.stroke();g.beginPath();g.arc(32,-33,23,-1.6,2.6);g.stroke();g.fillStyle='#f9cf43';g.fillRect(-7,0,14,22);g.fillRect(-29,20,58,11);text('★',0,-21,35,'#fff4af','center');g.restore()}
+ // Kicki klättrar automatiskt på pallens steg medan spelaren går åt höger.
+ const x=victoryX;let feet=465;if(x>=420)feet=309;else if(x>=315)feet=367;else if(x>=210)feet=416;
+ text(goldSuit?'👑':'👷',x,feet-7,53,'#fff','center');if(victoryClaimed)text('🏆',x+35,feet-43,36,'#fff','center');
+ // Konfetti och fyrverkerier.
+ const colors=['#ffe56c','#ff6e83','#6af4dd','#a9a5ff','#ffffff'];
+ for(let i=0;i<110;i++){const px=(i*113+t*(.5+i%4*.35))%W,py=(i*71+t*(1+i%3*.6))%H;g.fillStyle=colors[i%colors.length];g.fillRect(px,py,4+i%3,7)}
+ for(let k=0;k<4;k++){const cx=100+k*235,cy=100+(k%2)*60;for(let j=0;j<14;j++){const a=j*Math.PI/7+t*.008;const r=24+Math.sin(t*.05+k)*9;g.fillStyle=colors[(j+k)%5];g.fillRect(cx+Math.cos(a)*r,cy+Math.sin(a)*r,5,5)}}
+ rect(48,14,864,103,'#172037dd');text('🏆 GRATTIS! ULTIMATA BYGGMÄSTAREN! 🏆',480,50,28,'#ffe06a','center');text('20 BANOR AVKLARA • SUPER KICKI MÄSTARE',480,83,18,'#fff','center');
+ rect(140,488,680,43,'#14213bdc');text(victoryClaimed?'🏆 POKALEN ÄR DIN! +5 000 POÄNG!':'◀ ▶ GÅ UPP PÅ PRISPALLEN • E / ANVÄND = TA POKALEN',480,516,17,'#fff','center');
+ if(victoryClaimed){rect(172,126,616,70,'#281c34e6');text('🎆 VÄRLDSMÄSTARE I BYGGKAOS! 🎆',480,157,24,'#ffe27d','center');text('SLUTPOÄNG: '+score.toLocaleString('sv-SE')+' • TOPPLISTAN NEDANFÖR',480,182,16,'#fff','center')}
+}
+function draw(){if(tunnelRoom){drawTunnel();return;}if(win){drawVictory();return}g.clearRect(0,0,W,H);const sky=g.createLinearGradient(0,0,0,H);const skies=[['#75b6e2','#c5dbe5','#f1c7a0'],['#e5a75b','#f3d4a5','#ffe4a9'],['#9b86c9','#d7c8e9','#f1b9a3'],['#6089b5','#aec4da','#b9d5db'],['#d77b60','#e9b58d','#f5d8a4'],['#6b91a2','#a9c4ce','#d8dbca'],['#a66d63','#d6a29a','#e6c4ac'],['#739e81','#b6c9a3','#e5dbb4'],['#9a78c5','#e1b4d4','#ffd39c'],['#542b49','#9b5470','#df9169'],['#73a5bf','#b4d6db','#e9d5b0'],['#6d9e80','#a4c8a5','#d3d9a4'],['#789ebc','#d5e6f4','#eefaff'],['#46495d','#898b9a','#b5a89b'],['#4b345c','#a45c78','#f2a66d']];const palette=skies[level%skies.length];sky.addColorStop(0,palette[0]);sky.addColorStop(.65,palette[1]);sky.addColorStop(1,palette[2]);g.fillStyle=sky;g.fillRect(0,0,W,H);// Ljusstrålar och avlägsen byggstad skapar mer djup i varje bana.
+g.save();g.globalAlpha=.13;for(let i=0;i<16;i++){const bx=((i*93-cam*.045)%1200+1200)%1200-80;const bh=55+(i*37)%135;rect(bx,GROUND-bh,55+(i%3)*18,bh,'#263e55');for(let k=0;k<3;k++)rect(bx+9+k*16,GROUND-bh+16,6,8,'#ffdd94')}g.restore();
+g.save();g.globalAlpha=.09;const glow=g.createRadialGradient(760,75,10,760,75,290);glow.addColorStop(0,'#fff6b3');glow.addColorStop(1,'#fff6b300');g.fillStyle=glow;g.fillRect(400,0,560,430);g.restore();
+g.fillStyle='#ffffff60';for(let i=0;i<5;i++){let x=((i*320-frame*.12)%1550+1550)%1550-160;g.beginPath();g.ellipse(x,85+(i%3)*45,90,19,0,0,7);g.fill()}g.save();g.translate(-cam*.12,0);
+const theme=level;const biome=siteTheme(level);
+// Varje byggplats får eget projektnummer, arbetsplatsprofil och subtil färgton.
+g.save();g.globalAlpha=.055;g.fillStyle=`hsl(${(level*47+17)%360} 65% 60%)`;g.fillRect(0,0,W,H);g.restore();
+g.save();g.globalAlpha=.82;g.fillStyle='#1a2d42';g.fillRect(14,14,175,28);g.strokeStyle='#e9bd56';g.lineWidth=2;g.strokeRect(14,14,175,28);g.fillStyle='#ffe9ad';g.font='bold 13px system-ui';g.fillText('BYGGPLATS '+String(level+1).padStart(2,'0')+' / 40',23,33);g.restore();
+// Varje bana har sin egen skyline och sina egna miljödetaljer.
+for(let i=0;i<14;i++){
+ const x=i*310-130, wob=i%4, base=340+wob*17;
+ if(biome==='harbor'){ // hamn med containrar, båtar och kajkranar
+  rect(x,base,166,150,['#bd614d','#447e99','#d9a343'][i%3]);rect(x+9,base+13,145,5,'#243c52');
+  if(i%3===0){rect(x+78,125,8,245,'#5c6773');rect(x-45,132,270,8,'#b5a057');rect(x+210,137,4,140,'#ddd5aa')}
+ }else if(biome==='forest'){ // skog och höga granar
+  rect(x+64,base-60,14,210,'#65503e');for(let j=0;j<4;j++){g.fillStyle=['#2c674b','#397a52','#28583e'][j%3];g.beginPath();g.moveTo(x+71,base-225+j*38);g.lineTo(x-15,base-70+j*38);g.lineTo(x+155,base-70+j*38);g.closePath();g.fill()}
+ }else if(biome==='winter'){ // vinter: snö och frusna byggbodar
+  rect(x,base,158,160,'#879ba9');rect(x,base,158,12,'#f4faff');rect(x+20,base+35,35,45,'#b7e7ff');rect(x+92,base+35,35,45,'#b7e7ff');rect(x+20,base-16,110,17,'#f5fcff');
+ }else if(biome==='tunnel'){ // tunnel, bergväggar och arbetslampor
+  rect(x,base-95,175,255,'#5e5863');rect(x+30,base-50,105,80,'#363746');rect(x+76,base-84,12,15,'#ffe1a0');rect(x+81,base-65,3,55,'#f4d88488');
+ }else if(biome==='final'){ // final: mäktigt industrikomplex
+  rect(x,base-80,163,230,'#5c4557');rect(x+15,base-63,135,11,'#e9b94b');for(let j=0;j<4;j++)rect(x+20+j*34,base-35,19,75,'#b9d7df');if(i%3===0){rect(x+80,base-230,13,155,'#e6aa42');rect(x+30,base-230,160,9,'#e6aa42')}
+ }else if(theme===10||theme===11||theme===12){ // markarbete, berg och grus
+  g.fillStyle=['#8b806d','#998b77','#7c8c77'][theme-10];g.beginPath();g.moveTo(x-20,480);g.lineTo(x+55,base-100);g.lineTo(x+150,480);g.fill();rect(x+65,base-110,11,85,'#c0a15b');
+ }else if(theme===6||theme===7){ // betong och fakturafabrik
+  rect(x,base-80,150,240,'#7d8695');for(let j=0;j<3;j++)rect(x+15+j*43,base-50,30,54,'#c6d8df');rect(x+108,base-175,26,100,'#7b6870');rect(x+110,base-180,22,8,'#d7a76e');
+ }else if(theme===3){ // kaffekris: kaffebodar
+  rect(x,base-25,150,180,'#b8815c');rect(x+20,base-4,105,30,'#e9cba1');rect(x+56,base+36,45,65,'#5b3f35');
+ }else if(theme===8||theme===9||theme===14){ // storstadens höghus och bossområde
+  rect(x,base-140,155,300,'#667b9c');for(let j=0;j<4;j++)for(let k=0;k<3;k++)rect(x+17+k*44,base-115+j*48,26,25,'#d8d2a0');
+ }else if(theme===4||theme===5||theme===13){ // ställningar och kranar
+  rect(x+25,base-90,125,235,'#8c9299');for(let j=0;j<4;j++)rect(x+25,base-70+j*42,125,6,'#dbb167');rect(x+80,base-190,8,105,'#c69d48');rect(x+18,base-190,185,7,'#c69d48');
+ }else{ // byggkvarter med olika hus
+  rect(x,base-45,145,200,['#849aa7','#9c9b8c','#8b7f94'][theme%3]);for(let j=0;j<3;j++)rect(x+16+j*42,base-15,27,39,'#d6e3e8');rect(x+15,base-55,112,12,'#d7aa66');
+ }
+}
+g.restore();g.save();g.translate(-cam,0);drawExtras();for(const d of digSpots){if(d.opened)continue;rect(d.x-30,GROUND-7,60,8,'#9d886e');for(let j=0;j<4;j++)rect(d.x-22+j*13,GROUND-6,8,3,'#d3b890');if(Math.abs(player.x-d.x)<105)text('E ⛏️ BILL',d.x,GROUND-25,12,'#ffe58c','center');}for(const b of steelBeams){const ex=b.endX??b.x,ey=b.endY??b.y+b.len;g.strokeStyle='#b4c2ca';g.lineWidth=5;g.beginPath();g.moveTo(b.x,b.y);g.lineTo(ex,ey);g.stroke();g.save();g.translate(ex,ey);g.rotate(Math.sin(frame*.022+b.phase)*.9);rect(-72,-13,144,26,'#718695');rect(-72,-13,144,5,'#d4e1e7');for(let n=-55;n<65;n+=30)rect(n,-4,8,8,'#d5a94a');g.restore();}for(const t of tunnelDoors){g.save();g.strokeStyle='#66717b';g.lineWidth=17;g.beginPath();const ty=t.y||GROUND;g.moveTo(t.x,ty);g.lineTo(t.x,ty-64);g.quadraticCurveTo(t.x+t.w/2,ty-135,t.x+t.w,ty-64);g.lineTo(t.x+t.w,ty);g.stroke();g.strokeStyle='#e7b94b';g.lineWidth=4;g.stroke();if(t.down){rect(t.x+25,GROUND-9,t.w-50,9,'#1b2734');text('VVS-TUNNEL ↓',t.x+t.w/2,GROUND-120,13,'#ffe27b','center')}g.restore();}for(const pit of pitMarkers){rect(pit.x,GROUND,pit.w,70,'#3d2b24');rect(pit.x+4,GROUND+8,pit.w-8,12,'#1a1718');text('⚠ GRÄVGROP',pit.x+pit.w/2,GROUND-12,12,'#ffdf67','center')}for(const p of [...platforms,...movingPlatforms]){if(p.gone>0)continue;if(p.scaffold){rect(p.x+7,p.y+16,7,Math.max(0,GROUND-p.y-16),'#7d8b93');rect(p.x+p.w-14,p.y+16,7,Math.max(0,GROUND-p.y-16),'#7d8b93');rect(p.x+7,p.y+38,p.w-14,4,'#b88b4d');for(let braceY=p.y+70;braceY<GROUND-12;braceY+=68)rect(p.x+8,braceY,p.w-16,4,'#b88b4d')}if(p.fragile){const danger=p.timer>0;const shake=danger&&p.timer<40?Math.sin(frame*1.7)*2.2:0;rect(p.x+shake,p.y,p.w,p.h,danger?'#c9793a':'#a97a4d');rect(p.x+shake,p.y-5,p.w,5,danger&&p.timer<40?'#ff5444':'#edb64b');g.save();g.strokeStyle=danger?'#3b2020':'#62472e';g.lineWidth=2;for(let k=0;k<3;k++){const xx=p.x+16+k*(p.w-32)/3+shake;g.beginPath();g.moveTo(xx,p.y+1);g.lineTo(xx+8,p.y+7);g.lineTo(xx+3,p.y+14);g.stroke()}g.restore();if(danger){text('⚠ '+Math.ceil(p.timer/60)+'s',p.x+p.w/2,p.y-15,14,p.timer<40?'#ff5e48':'#ffe17a','center')}}else rect(p.x,p.y,p.w,p.h,p.baseX!==undefined?'#437e91':'#596b79');rect(p.x,p.y,p.w,12,'#c3c9cb');rect(p.x,p.y+12,p.w,6,'#253d4c');for(let i=0;i<p.w;i+=38){rect(p.x+i,p.y+1,18,6,'#e9ad37');rect(p.x+i+22,p.y+1,11,6,'#26323c')}}for(let i=0;i<9;i++){let x=i*440+120;rect(x,GROUND-40,8,40,'#e4a43c');rect(x-10,GROUND-42,28,8,'#e4a43c')}for(const d of siteProps){if(Math.floor(d.x/145)%3!==0)continue;const x=d.x,y=GROUND;
+if(d.kind===0){rect(x,y-68,90,6,'#c78b38');rect(x+8,y-68,7,68,'#b0b8bd');rect(x+76,y-68,7,68,'#b0b8bd');rect(x+10,y-42,68,6,'#c78b38');/* decorative scaffold */}
+if(d.kind===1){rect(x,y-44,62,44,'#d08d32');rect(x+5,y-36,52,8,'#343a40');rect(x+9,y-16,13,16,'#242a32');rect(x+41,y-16,13,16,'#242a32');/* decorative site cabin */}
+if(d.kind===2){rect(x,y-32,54,32,'#c0a68a');rect(x+4,y-28,46,6,'#7a5d43');rect(x+8,y-15,38,4,'#7a5d43');rect(x+60,y-43,8,43,'#555b63');rect(x+48,y-45,32,5,'#e9c54d')}
+if(d.kind===3){rect(x,y-82,7,82,'#778590');rect(x-22,y-85,60,6,'#e5ac2b');rect(x+35,y-85,4,30,'#778590');rect(x+28,y-55,18,18,'#e4a32d')}
+if(d.kind===4){rect(x,y-38,50,38,'#d65b40');rect(x+6,y-32,38,7,'#fff1ce');/* decorative sign */}
+if(d.kind===5){rect(x,y-24,65,24,'#987052');rect(x+4,y-20,57,4,'#e5b66c');rect(x+4,y-10,57,4,'#e5b66c');}
+}
+if(checkpoint){rect(checkpoint.x,GROUND-110,5,110,'#263849');rect(checkpoint.x+5,GROUND-110,65,38,checkpoint.active?'#39b87b':'#f3bd44');text(checkpoint.active?'✓ SPARAT':'🏁',checkpoint.x+38,GROUND-86,13,'#17232d','center')}
+for(const ladder of ladders){rect(ladder.x,ladder.y,ladder.w,ladder.h,'#b2a17b');for(let y=ladder.y+8;y<ladder.y+ladder.h;y+=16)rect(ladder.x+2,y,ladder.w-4,4,'#f7c969')}
+for(const belt of conveyors){rect(belt.x,belt.y,belt.w,belt.h,'#2a4857');for(let i=0;i<belt.w;i+=30)text(belt.dir>0?'→':'←',belt.x+i+15,belt.y+12,15,'#ffd56b','center')}
+for(const ex of excavators){
+ // Större gul grävmaskin med tydlig hytt, larvband och rörlig skopa.
+ rect(ex.x+14,ex.y+71,143,21,'#252e36');
+ for(let t=0;t<5;t++)rect(ex.x+22+t*27,ex.y+77,17,9,'#65717a');
+ rect(ex.x+27,ex.y+34,113,43,'#f5b923');rect(ex.x+57,ex.y+3,61,48,'#eab12c');
+ rect(ex.x+65,ex.y+10,45,31,'#8ac6dc');
+ const armY=ex.y+24+(ex.arm||0)*34;
+ rect(ex.x+128,armY,69,13,'#f8cb35');rect(ex.x+188,armY+4,15,40,'#f8cb35');
+ rect(ex.x+181,armY+38,32,16,'#a6a7a1');
+ text('GRÄV',ex.x+75,ex.y+67,15,'#27333d','center');text('KROSSA STENEN →',ex.x+88,ex.y-14,13,'#ffe59a','center');
+}
+for(const rock of rockBlocks){if(rock.broken)continue;
+ rect(rock.x,rock.y+18,rock.w,rock.h-18,'#858a90');
+ rect(rock.x+11,rock.y+4,rock.w-22,23,'#abb0b3');
+ text('🪨',rock.x+rock.w/2,rock.y+38,28,'#fff','center');
+ text('SKOPA!',rock.x+rock.w/2,rock.y-10,13,'#fff2a1','center');
+}
+// Korta instruktioner direkt i spelvärlden, även synliga på mobil.
+for(const crate of scaffoldCrates){if(!crate.broken&&Math.abs(player.x-crate.x)<165&&Math.abs(player.y-crate.y)<130){
+ text('📦 SKJUT MED X / SKJUT!',crate.x+15,crate.y-28,15,'#fff1a0','center');break;
+}}
+for(const ex of excavators){if(!driving&&Math.abs(player.x-ex.x)<145&&Math.abs(player.y+player.h-GROUND)<100){
+ text('🚜 E / ANVÄND = KÖR',ex.x+80,ex.y-22,18,'#fff1a0','center');break;
+}}
+if(driving)text('PILAR: KÖR · UPP/NER: SKOPA · E: UT',driving.x+85,driving.y-36,16,'#fff1a0','center');
+for(const h of hooks){const a=Math.sin(frame*.025+h.phase)*.98;const xx=h.x+Math.sin(a)*h.length;rect(h.x-4,h.y-10,8,12,'#d3a134');g.strokeStyle='#c9c6bb';g.lineWidth=3;g.beginPath();g.moveTo(h.x,h.y);g.lineTo(xx,h.y+Math.cos(a)*h.length);g.stroke();text('🪝',xx,h.y+Math.cos(a)*h.length+12,24,'#fff','center');if(h.challenge)text('E / ANVÄND',h.x,h.y-20,13,'#ffe98c','center')}
+for(const cabin of cabins){rect(cabin.x,cabin.y,cabin.w,cabin.h,cabin.opened?'#4c7c5d':'#9b6435');rect(cabin.x+10,cabin.y+12,28,27,'#b2d3e4');rect(cabin.x+52,cabin.y+21,29,44,'#45332b');text(cabin.opened?'✓':'HEMLIG',cabin.x+46,cabin.y+10,12,'#ffe98e','center')}
+for(const sp of springs){rect(sp.x,sp.y,sp.w,sp.h,'#d8a32e');rect(sp.x+5,sp.y+3,sp.w-10,5,'#fff3a3');text('↑',sp.x+22,sp.y-6,21,'#fff1a0','center')}
+for(const crate of scaffoldCrates){if(crate.broken)continue;rect(crate.x,crate.y,crate.w,crate.h,'#aa743a');rect(crate.x+3,crate.y+3,crate.w-6,crate.h-6,'#d6a55c');rect(crate.x+5,crate.y+6,crate.w-10,4,'#76512d');text(crate.hp===1?'💥':'✕',crate.x+crate.w/2,crate.y+22,19,'#fff0ad','center')}for(const h of hazards){rect(h.x,h.y,h.w,h.h,'#b12c2c');text('⚠',h.x+14,h.y+17,20,'#ffea68','center')}
+for(const it of items){if(it.got)continue;if(it.type==='blueprint'){text('📜',it.x+10,it.y+22,29,'#ffdb71','center');continue}const x=it.x,y=it.y+Math.sin(frame*.07+it.x)*4;const sprite=pickupIcons[it.type];g.save();g.shadowColor='#ffdc64';g.shadowBlur=13;g.fillStyle='#171b25';g.beginPath();g.roundRect(x-5,y-5,36,36,8);g.fill();g.shadowBlur=0;if(sprite&&sprite.complete&&sprite.naturalWidth){g.drawImage(sprite,x-3,y-3,32,32)}else{text({coffee:'☕',concrete:'🧱',mail:'✉',helmet:'⛑',coin:'★',gold:'💸'}[it.type],x+13,y+22,22,'#fff','center')}g.restore()}for(const e of enemies){if(!e.alive)continue;
+const k=e.kind||0,x=e.x,y=e.y,bob=Math.sin(frame*.1+x)*1.5;
+g.save();g.translate(x,y+bob);
+const coats=['#58677e','#8d3241','#3b725f','#574e70'];
+const skin=['#f4b59b','#d79a7d','#e6b88f','#b97e65'];
+rect(5,16,25,27,coats[k]);rect(4,1,27,22,skin[k]);
+if(k===0){rect(1,-5,33,8,'#b7a69a');rect(8,8,5,3,'#151515');rect(21,8,5,3,'#151515');rect(10,17,15,2,'#9a4545')}
+if(k===1){rect(1,-7,33,10,'#171a22');rect(6,-10,23,7,'#171a22');rect(8,8,7,3,'#161616');rect(21,6,6,3,'#161616');rect(10,17,16,3,'#fff');rect(29,20,6,6,'#f4b59b')}
+if(k===2){rect(3,-8,29,10,'#e9ac1f');rect(9,8,6,4,'#111');rect(21,8,6,4,'#111');rect(12,17,12,4,'#762c2c');rect(-3,21,10,9,'#e6b88f');rect(29,21,10,9,'#e6b88f');rect(0,29,7,4,'#e6b88f')}
+if(k===3){rect(1,-4,33,7,'#d9d6d1');rect(7,7,9,5,'#141414');rect(20,7,9,5,'#141414');rect(13,18,11,2,'#333');rect(6,24,24,3,'#c7ad57');}
+rect(7,42,8,5,'#282c35');rect(22,42,8,5,'#282c35');
+g.restore();
+if(Math.abs(e.x-player.x)<185&&frame%200<85){
+const phrases=['VAR ÄR FAKTURAN?!','DET DÄR INGICK VÄL?!','VARFÖR ÄR DET INTE KLART?!','JAG VILL PRATA MED CHEFEN!'];
+rect(x-75,y-44,190,27,'#fff');text(phrases[k],x+20,y-26,10,k===2?'#c02b20':'#242b37','center')}
+}for(const wall of barriers){if(wall.hp>0){rect(wall.x,wall.y,wall.w,wall.h,'#9c6837');for(let yy=0;yy<wall.h;yy+=20)rect(wall.x+3,wall.y+yy,wall.w-6,4,'#e6b773');text('SKJUT!',wall.x+wall.w/2,wall.y-12,13,'#fff18b','center')}}if(boss){rect(boss.x,boss.y+24,boss.w,boss.h-24,({painter:'#dc4b8a',electrician:'#d6a920',plumber:'#3a92c8',customer:'#26374c',landscaper:'#49763e',safety:'#e0a12c',foreman:'#773e83',sheetmetal:'#607d93',multicut:'#7254b6',ruben:'#a74853'})[boss.kind]);rect(boss.x+9,boss.y,boss.w-18,44,'#d6b6a0');rect(boss.x-4,boss.y-10,boss.w+8,12,'#fff');text(({painter:'ARG MÅLARE',electrician:'ARG ELEKTRIKER',plumber:'ARG VVS-ARE',customer:'BETALA?!',landscaper:'ANLÄGGAREN',safety:'ARBETSMILJÖ',foreman:'BYGGCHEFEN',sheetmetal:'PLÅTSLAGAREN',multicut:'MIKE MULTICUT',ruben:'RUBENRÅTTKUK'})[boss.kind],boss.x+boss.w/2,boss.y-24,15,'#f44','center');rect(boss.x+12,boss.y+45,52,9,'#f8f8f8');text(({painter:'FÄRGKAOS',electrician:'HÖGSPÄNNING',plumber:'VATTENLÄCKA',customer:'SLUTKUND',landscaper:'GRUSREGN',safety:'SKYDDSROND',foreman:'TOTALT KAOS',sheetmetal:'PLÅTREGN',multicut:'VIRVELVIND',ruben:'HOPPATTACK'})[boss.kind],boss.x+boss.w/2,boss.y+53,8,'#232a39','center');g.save();const bx=boss.x,by=boss.y,bw=boss.w,bh=boss.h;g.strokeStyle='#1b2531';g.lineWidth=3;g.strokeRect(bx+2,by+25,bw-4,bh-28);rect(bx+12,by+bh-14,19,14,'#202734');rect(bx+bw-31,by+bh-14,19,14,'#202734');rect(bx+14,by+13,9,5,'#18202a');rect(bx+bw-23,by+13,9,5,'#18202a');rect(bx+bw/2-13,by+29,26,5,'#703c35');if(boss.kind==='painter'){rect(bx+7,by-12,bw-14,12,'#f2f2ef');rect(bx+bw-16,by+48,12,31,'#e78ab8');text('🖌️',bx+bw-6,by+45,25,'#fff','center')}else if(boss.kind==='electrician'){rect(bx+4,by-15,bw-8,13,'#f0c32c');text('⚡',bx+bw/2,by+bh-28,32,'#ffe35c','center')}else if(boss.kind==='plumber'){rect(bx+6,by-13,bw-12,13,'#347fa6');text('🔧',bx+bw-10,by+bh-29,29,'#fff','center')}else if(boss.kind==='landscaper'){rect(bx+4,by-16,bw-8,14,'#e4a92f');rect(bx+9,by+bh-38,bw-18,8,'#c6cf69');text('⛏️',bx+bw-8,by+bh-36,26,'#fff','center')}else if(boss.kind==='safety'){rect(bx+3,by-14,bw-6,13,'#f3b72c');rect(bx+7,by+bh-39,bw-14,8,'#f5ed8c');text('📋',bx+bw-10,by+bh-33,26,'#fff','center')}else if(boss.kind==='foreman'){rect(bx+3,by-13,bw-6,14,'#222433');rect(bx+10,by+bh-42,bw-20,10,'#d2b38c');text('👔',bx+bw/2,by+bh-29,26,'#fff','center')}else if(boss.kind==='sheetmetal'){rect(bx+3,by-13,bw-6,14,'#b8cbd3');text('🔨',bx+bw/2,by+bh-29,25,'#fff','center')}else if(boss.kind==='multicut'){rect(bx+4,by-14,bw-8,14,'#533b91');text('🌀',bx+bw/2,by+bh-29,26,'#fff','center')}else{text('💼',bx+bw/2,by+bh-27,26,'#fff','center')}// Arbetskläder, reflexer, ansikte och skuggor för tydligare boss-siluetter.
+rect(bx+4,by+bh-26,bw-8,5,'#202c3d');rect(bx+8,by+bh-44,7,23,'#f9d56a');rect(bx+bw-15,by+bh-44,7,23,'#f9d56a');
+rect(bx+10,by+38,12,5,'#ffffffaa');rect(bx+bw-22,by+38,12,5,'#ffffffaa');
+g.fillStyle='#1d222b';g.beginPath();g.arc(bx+bw/2-10,by+18,3,0,Math.PI*2);g.arc(bx+bw/2+10,by+18,3,0,Math.PI*2);g.fill();
+g.strokeStyle='#6b3b2b';g.lineWidth=2;g.beginPath();g.moveTo(bx+bw/2-9,by+29);g.lineTo(bx+bw/2+9,by+29);g.stroke();
+if(boss.warning){const blink=Math.floor(frame/7)%2===0;g.save();g.strokeStyle=blink?'#ffda4b':'#ff694e';g.lineWidth=5;g.strokeRect(bx-10,by-24,bw+20,bh+33);text('⚠ SPECIALATTACK!',bx+bw/2,by-66,17,'#ffe477','center');const tx=boss.warning.targetX;g.setLineDash([9,7]);g.strokeStyle='#ff694e';g.beginPath();g.ellipse(tx,GROUND-7,48,9,0,0,Math.PI*2);g.stroke();g.setLineDash([]);g.restore();}if(!boss.warning&&boss.attack<38){g.strokeStyle='#ffdc56';g.lineWidth=4;g.strokeRect(bx-6,by-20,bw+12,bh+24);text('!',bx+bw/2,by-55,27,'#ffe05a','center')}g.restore();rect(boss.x,boss.y-47,boss.w,8,'#611');rect(boss.x,boss.y-47,boss.w*boss.hp/boss.maxHp,8,'#e43')}rect(exitX,GROUND-128,9,128,'#222');rect(exitX-18,GROUND-150,115,56,'#050505');text('SUPER KICKI',exitX+40,GROUND-124,18,'#fff','center');text('MÅL →',exitX+40,GROUND-104,13,'#fff','center');for(const q of customerShots){g.save();g.translate(q.x+12,q.y+11);g.rotate(Math.sin(q.spin)*.25);rect(-12,-10,24,20,'#fff4d6');rect(-10,-8,20,4,'#e65b4c');text('!',0,7,15,'#d52c2c','center');g.restore()}
+for(const q of bossShots){rect(q.x,q.y,q.w||54,q.h||28,q.type==='FÄRG'?'#ee78c4':q.type==='BLIXT'?'#ffe94e':q.type==='VATTEN'?'#66cafa':'#faf2d8');rect(q.x,q.y,q.w||54,5,'#27394b');text(q.type,q.x+(q.w||54)/2,q.y+18,9,'#172536','center')}for(const b of bullets){g.save();g.translate(b.x,b.y);if(!b.nail)g.rotate(Math.sin(frame*.22+b.x*.03)*.15);rect(0,0,b.mega?60:25,b.mega?35:17,b.mega?'#ffda62':b.nail?'#a8bdca':'#fff9e8');rect(2,2,b.mega?56:21,3,'#e7a945');if(!b.nail){rect(4,7,b.mega?52:17,2,'#8d9aab');rect(4,11,b.mega?42:13,2,'#8d9aab');rect(b.mega?46:17,1,4,14,'#df5d4b');}else{rect(4,5,17,6,'#465f71');rect(18,3,8,10,'#f0c75a');}g.restore();}for(const p of particles)rect(p.x,p.y,5,5,p.color);{if(!(player.inv>0&&frame%8<4)){const x=player.x,y=player.y;const angry=rageTime>0||megaTime>0;if(megaTime){g.translate(x+16,y+55);g.scale(2.4,2.4);g.translate(-x-16,-y-55)}const step=Math.sin(frame*(player.vx?0.29:0.05))*3;
+// Peaky Blinders-inspirerad karaktär, skuggad tweedkostym, rock och rött skägg
+const sway=Math.sin(frame*.22)*(player.vx?3:1);
+g.save();g.translate(x+16,y+25);g.scale(player.face,1);g.translate(-16,-25);
+// rockens fladdrande skört
+g.fillStyle=angry?'#602b2b':'#252e38';g.beginPath();g.moveTo(8,27);g.lineTo(26,27);g.lineTo(31+sway,54);g.lineTo(16,47);g.lineTo(1-sway,54);g.closePath();g.fill();
+// byxor och läderkängor
+rect(7,37,9,13,'#34383e');rect(19,37,9,13,'#34383e');rect(4,48+step,14,7,'#171c23');rect(18,48-step,14,7,'#171c23');
+// kostymjacka och väst
+rect(6,25,23,21,'#3a3c40');rect(9,25,17,18,'#685f53');rect(13,25,9,15,'#e9ded0');rect(15,29,5,12,'#8c3831');rect(6,27,5,16,'#292d34');rect(26,27,5,16,'#292d34');
+// fickurskedja
+g.strokeStyle='#e3b65a';g.lineWidth=1.3;g.beginPath();g.moveTo(14,38);g.quadraticCurveTo(20,46,26,37);g.stroke();
+// händer
+rect(2,40,8,7,'#e4a37f');rect(27,40,8,7,'#e4a37f');
+// ansikte och tydligt rött skägg
+rect(7,7,21,23,angry?'#f5a087':'#eeb18c');g.fillStyle='#a83d20';g.beginPath();g.moveTo(5,21);g.lineTo(30,21);g.lineTo(28,34);g.lineTo(22,44);g.lineTo(16,47);g.lineTo(9,38);g.closePath();g.fill();rect(9,26,18,7,'#c95629');rect(13,34,11,6,'#9d361d');
+// solglasögon
+rect(8,16,9,5,'#161f29');rect(19,16,9,5,'#161f29');rect(16,17,5,2,'#a58c6d');rect(9,16,7,1,'#89afbd');rect(20,16,7,1,'#89afbd');
+// tweedkeps och skärm
+rect(5,4,28,7,'#49453f');rect(9,-2,20,9,'#635c50');rect(12,-5,15,5,'#6d665a');rect(0,10,24,4,'#35342f');rect(10,1,16,1,'#948876');
+g.restore();
+if(player.power==='helmet'){rect(x+1,y-8,31,8,'#f6c824');rect(x+6,y-13,21,6,'#f6c824')}
+if(player.power==='concrete'){g.strokeStyle='#a6e5ff';g.lineWidth=4;g.strokeRect(x-5,y-14,42,75)}if(player.power==='coffee'&&frame%6<3){text('⚡',x+32,y+10,19,'#ffe75c')}
+if(angry){rect(x+4,y+9,25,6,'#e33328');text('🔥',x+16,y-17,23,'#f44','center')}if(megaTime){text('🔥',x+4,y+39,22,'#ffb12a','center');text('🔥',x+26,y+52,22,'#ffb12a','center')}
+}g.restore();if(stormLevel(level)){g.save();g.strokeStyle=level===17?'#ffffffb0':'#8ed6ff75';g.lineWidth=level===17?3:1.6;for(let i=0;i<65;i++){const x=(i*157+frame*(level===17?1.2:3.5))%W;const y=(i*91+frame*(level===17?2:7))%H;g.beginPath();g.moveTo(x,y);g.lineTo(x+(level===17?3:11),y+(level===17?6:19));g.stroke()}g.restore()}if(cinematicUntil>frame){rect(145,91,670,66,'#19213bdc');text('🎬 '+({foreman:'BYGGCHEFEN FICK SPARKEN!',safety:'INSPEKTÖREN GODKÄNDE ALLT!',landscaper:'ANLÄGGAREN GAV UPP!'})[lastBossKind]||'BOSSEN ÄR BESEGRAD!',480,129,23,'#ffe37e','center')}rect(0,0,W,65,'#151b2fe8');text('❤️ '+life+'    ⭐ '+score,17,27,19);if(combo>=2&&frame-comboAt<190)text('🔥 KOMBO x'+combo,230,53,15,'#ffdf4a');text('BANA '+(level+1)+' / '+TOTAL_LEVELS+': '+names[level],W/2,27,17,'#fff','center');if(frame-stageStarted<260){text('MILJÖ: '+({forest:'SKOG',winter:'VINTER',harbor:'HAMN',tunnel:'TUNNEL',quarry:'BERG',rain:'REGN',wind:'BLÅST',factory:'FABRIK',final:'FINAL',industrial:'INDUSTRI',city:'STAD',night:'NATT',village:'BYGGKVARTER',concrete:'BETONG'}[biome]||'BYGGE'),W/2,52,14,'#ffe79c','center')}text('MEGA '+megaEnergy+'% [Z]',W-365,53,15,megaEnergy>=100?'#7affb2':'#ffdf4a');rect(W-365,61,154,11,'#352c37');rect(W-363,63,150*megaEnergy/100,7,'#ffd34f');text('ILSKA',W-225,25,14);rect(W-165,10,151,20,'#3c2635');rect(W-163,12,147*(rageTime?1:rage/100),16,rageTime?'#ff8b25':'#e84645');text(rageTime?'SUPER-RASERI!':rage+'%',W-90,26,13,'#fff','center');text(weaponLabel()+' [C]',20,53,15,'#ffe29b');if(toastT>0){rect(70,75,820,45,'#141725d9');text(toast,480,104,Math.min(20,760/Math.max(20,toast.length)*2.5),'#fff','center')}if(paused||dead||win){rect(0,0,W,H,'#101523c9');text(win?'🏆 KICKI KLARADE ALLT!':dead?'💀 KICKI FICK NOG!':'⏸ PAUS',W/2,220,38,'#fff','center');text(win?'SUPER KICKI – BYGGKAOS UTAN GRÄNSER':dead?'Tryck R för att försöka igen':'Tryck P för att fortsätta',W/2,270,22,'#ffe27d','center');if(win||dead)text('SLUTPOÄNG: '+score+' · 🏆 Spara rekordet nedanför',W/2,320,21,'#fff','center')}}}let last=0;function loop(t){if(t-last>=15){update();draw();last=t}requestAnimationFrame(loop)}document.addEventListener('keydown',e=>{if(e.target instanceof HTMLInputElement)return;if(['Space','ArrowUp','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if(!keys[e.code]&&e.code==='Space'){if(tunnelRoom)tunnelJump();else jump();}if(e.code==='KeyE'&&!e.repeat)action();if(tunnelRoom&&e.code==='KeyX'&&!e.repeat)tunnelShoot();if(e.code==='KeyP'&&!shopOpen)paused=!paused;if(e.code==='KeyC'&&!e.repeat&&!shopOpen)switchWeapon();if(e.code==='KeyB'){if(shopOpen)closeShop();else openShop()}if(shopOpen)return;if(e.code==='KeyH')showScores(!leaderboardOpen);if(e.code==='KeyR')reset();keys[e.code]=true});document.addEventListener('keyup',e=>keys[e.code]=false);// Varje finger äger sin knapp. Om ett finger släpps utanför knappen, skärmen
+// roteras eller fullskärm växlas får ingen rörelseknapp fastna i nedtryckt läge.
+const activePointers=new Map();
+function clearMobileControls(){activePointers.clear();for(const k in keys)keys[k]=false;document.querySelectorAll('[data-key]').forEach(b=>b.classList.remove('is-pressed'))}
+window.clearSuperVDMobileControls=clearMobileControls;
+window.addEventListener('blur',clearMobileControls);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)clearMobileControls()});
+window.addEventListener('pagehide',clearMobileControls);
+window.addEventListener('orientationchange',clearMobileControls);
+function releaseMobilePointer(id){const k=activePointers.get(id);if(!k)return;activePointers.delete(id);keys[k]=Array.from(activePointers.values()).includes(k);const b=document.querySelector('[data-key="'+k+'"]');if(b&&!keys[k])b.classList.remove('is-pressed')}
+document.addEventListener('pointerup',e=>releaseMobilePointer(e.pointerId),true);
+document.addEventListener('pointercancel',e=>releaseMobilePointer(e.pointerId),true);
+document.querySelectorAll('[data-key]').forEach(b=>{const k=b.dataset.key;
+ b.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();releaseMobilePointer(e.pointerId);activePointers.set(e.pointerId,k);b.classList.add('is-pressed');try{b.setPointerCapture(e.pointerId)}catch(_){}
+ if(k==='KeyE'){action()}else if(k==='Space'){if(tunnelRoom)tunnelJump();else jump();keys.Space=true}else if(k==='KeyZ'){keys.KeyZ=true}else if(k==='KeyF'){keys.KeyF=true}else if(k==='KeyX'){if(tunnelRoom)tunnelShoot();else shoot();keys.KeyX=true}else if(k==='KeyC'){switchWeapon()}else keys[k]=true;
+ });
+ b.addEventListener('lostpointercapture',e=>releaseMobilePointer(e.pointerId));
+ b.addEventListener('contextmenu',e=>e.preventDefault());
+});document.querySelector('#shopBtn').onclick=openShop;document.querySelector('#shopClose').onclick=closeShop;document.querySelector('#restart').onclick=()=>{closeShop();reset()};document.querySelector('#leaderboardBtn').onclick=()=>showScores(!leaderboardOpen);document.querySelector('#closeScores').onclick=()=>showScores(false);document.querySelector('#saveRecord').onclick=saveRecord;document.querySelector('#playerName').addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Enter')saveRecord()});document.querySelector('#difficultyMode').addEventListener('change',e=>{difficulty=e.target.value;reset();paused=true;message('SVÅRIGHET: '+e.target.selectedOptions[0].textContent)});document.querySelector('#mapBtn').addEventListener('click',()=>{const p=document.getElementById('mapPanel');p.hidden=!p.hidden;renderLevelMap()});document.querySelector('#closeMap').addEventListener('click',()=>document.getElementById('mapPanel').hidden=true);document.querySelector('#startGame').addEventListener('click',()=>{document.querySelector('#startScreen').hidden=true;beginRun();paused=false;try{c.focus()}catch(e){};message('VÄLKOMMEN TILL BYGGKAOSET!',true)});const testVoiceBtn=document.createElement('button');testVoiceBtn.textContent='🎙 PROVA KICKIS RÖST';testVoiceBtn.title='Lyssna på den svenska rösten';document.querySelector('#sound').insertAdjacentElement('afterend',testVoiceBtn);testVoiceBtn.textContent='🎙 TESTA GANGSTERRÖST';testVoiceBtn.onclick=()=>{audio=true;document.querySelector('#sound').textContent='🔊 SVENSK RÖST';chooseVoice();speak(gansterSample(),true,'fury')};
+function gansterSample(){return gangsterLines.fury}
+const voicePanel=document.createElement('div');voicePanel.className='voice-panel';voicePanel.innerHTML='<strong>🎙 SUPER KICKI GANGSTERRÖST</strong> <span id="voiceStatus">Söker svensk röst…</span><div class="voice-tests"><button type="button" data-voice="calm">😎 LUGN</button><button type="button" data-voice="angry">😠 ARG</button><button type="button" data-voice="fury">🤬 RASERI</button></div><small>Rösten använder datorns svenska talsyntes. Ljudet kan skilja sig mellan mobil och dator.</small>';
+document.querySelector('.buttons').insertAdjacentElement('afterend',voicePanel);
+voicePanel.querySelectorAll('[data-voice]').forEach(b=>b.addEventListener('click',()=>{audio=true;document.querySelector('#sound').textContent='🔊 SVENSK RÖST';chooseVoice();speak(gansterLines(b.dataset.voice),true,b.dataset.voice)}));
+function gansterLines(mode){return gangsterLines[mode]}
+chooseVoice();
+document.querySelector('#sound').onclick=e=>{audio=!audio;e.target.textContent=audio?'🔊 SVENSK RÖST':'🔇 RÖST AV';if(!audio&&'speechSynthesis'in window)speechSynthesis.cancel()};const voiceControl=document.createElement('label');voiceControl.id='voiceVolumeControl';voiceControl.innerHTML='<span>🎙 RÖSTVOLYM <output></output></span><input type="range" min="0" max="100" step="1" aria-label="Röstvolym">';document.querySelector('#sound').insertAdjacentElement('afterend',voiceControl);const voiceSlider=voiceControl.querySelector('input'),voiceOutput=voiceControl.querySelector('output');voiceSlider.value=voiceVolume;voiceOutput.textContent=voiceVolume+' %';voiceSlider.addEventListener('input',()=>{voiceVolume=Number(voiceSlider.value);voiceOutput.textContent=voiceVolume+' %';try{localStorage.setItem('superKickiVoiceVolume',String(voiceVolume))}catch(e){};if('speechSynthesis' in window)speechSynthesis.cancel()});reset();paused=true;requestAnimationFrame(loop)})();
+</script>
+<style id="super-kicki-voice-volume-style">#voiceVolumeControl{display:inline-flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;padding:8px 13px;border:1px solid #e2b957;border-radius:10px;background:#18263c;color:#fff;font:700 13px system-ui;min-width:170px}#voiceVolumeControl input{width:150px;max-width:100%;accent-color:#ffd15d;cursor:pointer}#voiceVolumeControl output{color:#ffd15d}</style>
+<style id="super-kicki-music-volume-style">#musicVolumeControl,#sfxVolumeControl{display:inline-flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;padding:8px 13px;border:1px solid #e2b957;border-radius:10px;background:#18263c;color:#fff;font:700 13px system-ui;min-width:170px}#musicVolumeControl input,#sfxVolumeControl input{width:150px;max-width:100%;accent-color:#ffd15d;cursor:pointer}#musicVolumeControl output,#sfxVolumeControl output{color:#ffd15d}</style>
+<script id="super-kicki-original-music">
+/* Original SUPER KICKI chiptune. No external audio files required. */
+(()=>{
+  const notes={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:783.99,A5:880};
+  const melody=['E5','G5','A5','G5','E5','D5','C5',null,'E5','G5','A5','C5','B4','G4','A4',null,'C5','E5','G5','E5','D5','C5','D5',null,'E5','D5','C5','G4','A4','C5','E5',null];
+  const bass=['C4',null,'C4',null,'A4',null,'G4',null,'F4',null,'F4',null,'G4',null,'G4',null];
+  let ctx=null,timer=null,step=0,enabled=true,started=false;let lastSfx={};let sfxVolume=Math.max(0,Math.min(100,Number(localStorage.getItem('superKickiSfxVolume')??'45')||0));
+  let volume=Number(localStorage.getItem('superKickiMusicVolume') ?? '35');
+  if(!Number.isFinite(volume))volume=35;volume=Math.max(0,Math.min(100,volume));
+  let master=null;
+  const button=document.createElement('button');button.id='musicToggle';button.type='button';button.textContent='🎵 MUSIK PÅ';button.setAttribute('aria-label','Slå av eller på spelmusiken');
+  const buttons=document.querySelector('.buttons');if(buttons){
+    buttons.appendChild(button);
+    const volumeControl=document.createElement('label');volumeControl.id='musicVolumeControl';
+    volumeControl.innerHTML='<span>🔉 MUSIKVOLYM <output id="musicVolumeValue"></output></span><input id="musicVolume" type="range" min="0" max="100" step="1" aria-label="Musikvolym">';
+    buttons.appendChild(volumeControl);const fx=document.createElement('label');fx.id='sfxVolumeControl';fx.innerHTML='<span>💥 EFFEKTLJUD <output></output></span><input type="range" min="0" max="100" step="1" aria-label="Effektljudets volym">';buttons.appendChild(fx);const fxSlider=fx.querySelector('input'),fxOut=fx.querySelector('output');fxSlider.value=sfxVolume;fxOut.textContent=sfxVolume+' %';fxSlider.addEventListener('input',()=>{sfxVolume=Number(fxSlider.value);fxOut.textContent=sfxVolume+' %';localStorage.setItem('superKickiSfxVolume',String(sfxVolume))});
+    const slider=volumeControl.querySelector('input'),output=volumeControl.querySelector('output');
+    slider.value=volume;output.textContent=volume+' %';
+    slider.addEventListener('input',()=>{volume=Number(slider.value);output.textContent=volume+' %';localStorage.setItem('superKickiMusicVolume',String(volume));if(master&&ctx)master.gain.setTargetAtTime(volume/100,ctx.currentTime,.025)});
+  }
+  function beep(freq,when,duration,kind,volume){if(!ctx||!freq)return;const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type=kind;osc.frequency.setValueAtTime(freq,when);gain.gain.setValueAtTime(.0001,when);gain.gain.exponentialRampToValueAtTime(volume,when+.012);gain.gain.exponentialRampToValueAtTime(.0001,when+duration);osc.connect(gain).connect(master||ctx.destination);osc.start(when);osc.stop(when+duration+.01)}
+  function sfx(kind){if(!ctx||ctx.state!=='running'||sfxVolume===0||document.hidden)return;const now=ctx.currentTime,limits={mail:.10,nail:.07,mega:.10,hurt:.38,boss:.7,enemy:.55,win:1.2};if(now-(lastSfx[kind]||-99)<(limits[kind]||.15))return;lastSfx[kind]=now;const presets={warnWater:[260,490,.28,'triangle',.075],warnWind:[150,350,.38,'sawtooth',.065],warnMetal:[620,240,.24,'square',.065],warnJump:[105,75,.36,'triangle',.085],warnEngine:[90,180,.42,'sawtooth',.075],water:[780,210,.21,'triangle',.095],wind:[160,490,.30,'sawtooth',.085],metal:[820,110,.22,'square',.10],stomp:[130,55,.30,'triangle',.12],engine:[110,360,.34,'sawtooth',.10],mail:[690,330,.085,'square',.09],nail:[980,490,.055,'sawtooth',.10],mega:[330,105,.22,'sawtooth',.13],hurt:[260,100,.24,'triangle',.16],boss:[170,85,.25,'sawtooth',.10],enemy:[480,240,.11,'triangle',.07],win:[540,850,.32,'triangle',.15]};const [hi,lo,dur,wave,amp]=presets[kind]||presets.mail;const o=ctx.createOscillator(),v=ctx.createGain();o.type=wave;o.frequency.setValueAtTime(hi,now);o.frequency.exponentialRampToValueAtTime(lo,now+dur);v.gain.setValueAtTime(.0001,now);v.gain.exponentialRampToValueAtTime(Math.max(.0001,amp*sfxVolume/100),now+.008);v.gain.exponentialRampToValueAtTime(.0001,now+dur);o.connect(v).connect(ctx.destination);o.start(now);o.stop(now+dur+.02)}window.kickiSfx=sfx;
+  function tick(){if(!ctx||ctx.state!=='running'||!enabled||document.hidden)return;const t=ctx.currentTime+.025;const phrase=Math.floor(step/32)%2;const note=melody[step%melody.length];if(note)beep(notes[note]*(phrase&&step%8===6?1.125:1),t,.15,phrase?'triangle':'square',.023);if(step%8===0)beep(85,t,.095,'triangle',.045);if(step%8===4)beep(145,t,.065,'sawtooth',.018);if(step%2===0){const b=bass[(step/2)%bass.length];if(b)beep(notes[b]/2,t,.23,'triangle',.048)}if(step%4===2)beep(180,t,.035,'triangle',.012);step++}
+  async function start(){if(!enabled||started)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();if(!master){master=ctx.createGain();master.gain.value=volume/100;master.connect(ctx.destination)}await ctx.resume();started=true;tick();timer=setInterval(tick,205)}catch(e){started=false}}
+  function stop(){if(timer){clearInterval(timer);timer=null}started=false;if(ctx&&ctx.state==='running')ctx.suspend().catch(()=>{})}
+  button.addEventListener('click',()=>{enabled=!enabled;button.textContent=enabled?'🎵 MUSIK PÅ':'🔇 MUSIK AV';if(enabled)start();else stop()});
+  document.getElementById('startGame')?.addEventListener('click',()=>{if(enabled)start()});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else if(enabled&&document.getElementById('startScreen')?.hidden)start()});
+})();
+</script><section aria-label="Om spelet" class="site-extras"><div class="site-extras-inner"><p class="eyebrow">SUPER KICKI PRESENTERAR</p><h2>Bygg. Bråka. Fakturera.</h2><p>Hjälp SUPER KICKI genom byggkaoset! Samla coins, köp spikpistolen, slå sönder träbarriärer, undvik arga hantverkare och ladda upp RASERI och MEGA-KICKI till 100 %.</p><h3>Färre bonusar – fler val i butiken</h3><div class="pickup-gallery"><div><img alt="Kaffe" src="ikoner/coffee.webp"/><strong>Kaffe</strong><small>Extra energi</small></div><div><img alt="Saltad faktura" src="ikoner/gold.webp"/><strong>Saltad faktura</strong><small>MEGA +35</small></div><div><img alt="Mynt" src="ikoner/coin.webp"/><strong>Mynt</strong><small>Poäng och kraft</small></div><div><img alt="Bygghjälm" src="ikoner/helmet.webp"/><strong>Bygghjälm</strong><small>Specialkraft</small></div><div><img alt="Cement" src="ikoner/concrete.webp"/><strong>Cement</strong><small>Skydd</small></div><div><img alt="Raseri" src="ikoner/rage.webp"/><strong>Raseri</strong><small>Tryck F vid 100 %</small></div></div><p class="site-note">🎮 GRATIS OCH UTAN KONTO! Klicka på SPELA NU för att börja direkt på dator eller mobil. Ingen inloggning eller registrering krävs. Rekorden sparas på en gemensam topplista online.</p><footer>SUPER KICKI · BYGGKAOS UTAN GRÄNSER · SUPER KICKI</footer></div></section><script id="large-screen-script">(function(){
+const b=document.getElementById('largeScreenBtn');if(!b)return;
+function sync(){const on=document.body.classList.contains('mobile-expanded');b.textContent=on?'✕ AVSLUTA STOR SKÄRM':'⛶ STOR SPELSKÄRM';}
+b.addEventListener('click',async function(){
+ const opening=!document.body.classList.contains('mobile-expanded');
+ window.clearSuperVDMobileControls?.();document.body.classList.toggle('mobile-expanded',opening);sync();
+ if(opening){try{if(!document.fullscreenElement&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen()}catch(e){}try{if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape')}catch(e){}}
+ else{try{if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock()}catch(e){}try{if(document.fullscreenElement&&document.exitFullscreen)await document.exitFullscreen()}catch(e){}}
+});
+document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&document.body.classList.contains('mobile-expanded')){window.clearSuperVDMobileControls?.();document.body.classList.remove('mobile-expanded');sync()}});
+})();</script></body></html>
